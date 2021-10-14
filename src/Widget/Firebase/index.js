@@ -20,13 +20,14 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-export const x = onAuthStateChanged(auth, (user) => {
-    if(user){
-        const uid = user.uid
-    } else{
-        console.log("Nenhum Usuario Logado")
-    }
-})
+export const x = () => 
+    onAuthStateChanged(auth, (user) => {
+        if(user){
+            console.log("Possui usuario")
+        } else{
+            console.log("Nenhum Usuario Logado")
+        }
+    })
 
 
 
