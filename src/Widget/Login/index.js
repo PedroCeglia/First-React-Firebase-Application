@@ -25,7 +25,10 @@ export default function Login(){
                 onChange={text => setPassword(text.target.value)} 
                 placeholder="Senha">
             </input>
-            <button onClick={recuperandoCampos}>Logar</button>
+            <div className='cadastro-buttons'>
+                <button onClick={recuperandoCampos}>Logar</button>
+                <a href="">Não Possui Uma Conta?</a>                
+            </div>
         </div>
     )
 }

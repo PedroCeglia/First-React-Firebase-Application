@@ -33,7 +33,10 @@ export default function Cadastro(){
                 onChange={text => setPassword(text.target.value)} 
                 placeholder="Senha">
             </input>
-            <button onClick={recuperandoCampos}>Logar</button>
+            <div className='cadastro-buttons'>
+                <button onClick={recuperandoCampos}>Logar</button>
+                <a href="">Já Possui Uma Conta?</a>                
+            </div>
         </div>
     )
 }
