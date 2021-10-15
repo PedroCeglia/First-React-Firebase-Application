@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { criaContaUsuario } from '../Firebase'
+import './style.css'
 
 export default function Cadastro(){
 
@@ -12,14 +13,14 @@ export default function Cadastro(){
     }
 
     return(
-        <div className='containerLogin'>
+        <div className='container-cadastro'>
             <h2>Cadastro</h2>
             <input
                 type='text'
                 value={name}
                 onChange={text => setName(text.target.value)} 
                 placeholder="Name">
-            </input>            
+            </input>       
             <input
                 type='email'
                 value={email}

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { logandoUsuario } from '../Firebase'
+import './style.css'
 export default function Login(){
 
     const [email, setEmail] = useState("")
@@ -10,13 +11,13 @@ export default function Login(){
     }
 
     return(
-        <div className='containerLogin'>
+        <div className='container-login'>
             <h2>Login</h2>    
             <input
                 type='email'
                 value={email}
                 onChange={text => setEmail(text.target.value)} 
-                placeholder="Email">
+                placeholder="Email: Ex) ...@gmail.com ">
             </input>
             <input 
                 type='password' 
