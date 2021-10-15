@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { logandoUsuario } from '../Firebase'
 import './style.css'
-export default function Login(){
 
+export default function Login(props){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -27,7 +27,7 @@ export default function Login(){
             </input>
             <div className='login-buttons'>
                 <button onClick={recuperandoCampos}>Logar</button>
-                <a href="">Não Possui Uma Conta?</a>                
+                <button className='button-a' onClick={props.change}>Não Possui Uma Conta?</button>                
             </div>
         </div>
     )

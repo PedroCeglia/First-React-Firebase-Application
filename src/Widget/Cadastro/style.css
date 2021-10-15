@@ -50,9 +50,11 @@
     justify-content: center;
     align-items: center;
 }
-.cadastro-buttons a{
+.cadastro-buttons .button-a{
     color: #fff ;
     font-weight: bold;
-    text-decoration: none;
     margin-top: 5px;
+    
+    background-color: transparent;
+    border: none;
 }

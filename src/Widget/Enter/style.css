@@ -1,0 +1,38 @@
+.container-enter{
+    height: 60vh;
+    max-height: 800px;
+    width: 80vw;
+    min-width: 300px;
+    max-width: 600px;
+    
+    position: relative;
+    overflow: hidden;
+}
+.content-background{
+    position: absolute;
+    top: 0;
+    left: -800px;
+    transition: all 1s;
+
+    height: 60vh;
+    max-height: 800px;
+    width: 80vw;
+    min-width: 300px;
+    max-width: 600px;
+
+    background-color: #fff;
+    
+    z-index: 2;
+    border-radius: 20px;
+}
+.content-singIn{
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: -800px;    
+    transition: all 1s;
+}
+.active{
+    transition: all 1s;
+    left: 0;
+} 

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { criaContaUsuario } from '../Firebase'
 import './style.css'
 
-export default function Cadastro(){
+export default function Cadastro(props){
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -35,7 +35,7 @@ export default function Cadastro(){
             </input>
             <div className='cadastro-buttons'>
                 <button onClick={recuperandoCampos}>Logar</button>
-                <a href="">Já Possui Uma Conta?</a>                
+                <button className='button-a' onClick={props.change}>Já Possui Uma Conta?</button>                
             </div>
         </div>
     )

@@ -5,8 +5,7 @@ import './App.css';
 import {verificaSeUsuarioEstaLogado, logoutUser} from './Widget/Firebase'
 
 //Widgets Import
-import Login from './Widget/Login';
-import Cadastro from './Widget/Cadastro';
+import Enter from './Widget/Enter';
 
 
 function App() {
@@ -14,9 +13,8 @@ function App() {
     <div className="App">
       <h1>Hello Word</h1>
       <button onClick={verificaSeUsuarioEstaLogado}>Clique e vera</button>
-      <Login/>
       <button onClick={logoutUser}>Sair</button>
-      <Cadastro/>
+      <Enter/>
     </div>
   );
 }
