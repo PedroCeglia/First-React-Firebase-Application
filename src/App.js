@@ -1,12 +1,22 @@
 import React from 'react';
 import './App.css';
-import {x} from './Widget/Firebase'
+
+// firebase Import
+import {verificaSeUsuarioEstaLogado, logoutUser} from './Widget/Firebase'
+
+//Widgets Import
+import Login from './Widget/Login';
+import Cadastro from './Widget/Cadastro';
+
 
 function App() {
   return (
     <div className="App">
       <h1>Hello Word</h1>
-      <button onClick={x}>Clique e vera</button>
+      <button onClick={verificaSeUsuarioEstaLogado}>Clique e vera</button>
+      <Login/>
+      <button onClick={logoutUser}>Sair</button>
+      <Cadastro/>
     </div>
   );
 }

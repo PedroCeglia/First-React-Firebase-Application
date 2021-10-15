@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth, onAuthStateChanged} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut} from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,16 +20,33 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
 
-export const x = () => 
-    onAuthStateChanged(auth, (user) => {
-        if(user){
-            console.log("Possui usuario")
-        } else{
-            console.log("Nenhum Usuario Logado")
-        }
-    })
+export const verificaSeUsuarioEstaLogado = () => {
+    if(auth.currentUser != null){
+        console.log("Possui usuario")
+        return true
+    }else{
+        console.log("Nenhum Usuario Logado")
+        return false
+    }
+}
+export const criaContaUsuario = (email, senha, nome) => {
+    createUserWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+            // Conta Criada
+            const user = userCredential.user
+            user.displayName(nome)
+        })
+        .catch(() => {})
+}
+export const logandoUsuario = (email, senha) => {
+    signInWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
 
-
-
+        })
+        .catch(() => {})
+}
+export const logoutUser = () => {
+    signOut(auth)
+}
 
 export default app
