@@ -5,6 +5,7 @@ import Home from '../../Pages/Home'
 import Intro from '../../Pages/Intro'
 
 function PrivateRoute({component: Component, isLog,pathRedirect, ...rest}){
+    
     useEffect(()=>{
         isLog()
     },[])
@@ -26,8 +27,8 @@ export default function Rotas(){
     return(
         <BrowserRouter>
             <Switch>
-                <PrivateRoute exact path='/' component={Intro} isLog={verificaSeUsuarioEstaDeslogado} pathRedirect='/home'/>
-                <PrivateRoute path='/home' component={Home} isLog={verificaSeUsuarioEstaLogado} pathRedirect='/'/>
+                <PrivateRoute exact path='/' component={Intro} isLog={verificaSeUsuarioEstaLogado} pathRedirect='/home'/>
+                <PrivateRoute path='/home' component={Home} isLog={verificaSeUsuarioEstaDeslogado} pathRedirect='/'/>
             </Switch>
         </BrowserRouter>
     )
