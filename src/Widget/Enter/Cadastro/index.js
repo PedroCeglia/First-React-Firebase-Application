@@ -1,23 +1,31 @@
 import React, {useState} from 'react'
-import { logandoUsuario } from '../Firebase'
+import { criaContaUsuario } from '../../../Server/FirebaseConfig'
 import './style.css'
 
-export default function Login(props){
+export default function Cadastro(props){
+
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     function recuperandoCampos(){
-        logandoUsuario(email, password)
+        criaContaUsuario(email, password, name)
     }
 
     return(
-        <div className='container-login'>
-            <h2>Login</h2>    
+        <div className='container-cadastro'>
+            <h2>Cadastro</h2>
+            <input
+                type='text'
+                value={name}
+                onChange={text => setName(text.target.value)} 
+                placeholder="Name">
+            </input>       
             <input
                 type='email'
                 value={email}
                 onChange={text => setEmail(text.target.value)} 
-                placeholder="Email: Ex) ...@gmail.com ">
+                placeholder="Email">
             </input>
             <input 
                 type='password' 
@@ -25,9 +33,9 @@ export default function Login(props){
                 onChange={text => setPassword(text.target.value)} 
                 placeholder="Senha">
             </input>
-            <div className='login-buttons'>
+            <div className='cadastro-buttons'>
                 <button onClick={recuperandoCampos}>Logar</button>
-                <button className='button-a' onClick={props.change}>Não Possui Uma Conta?</button>                
+                <button className='button-a' onClick={props.change}>Já Possui Uma Conta?</button>                
             </div>
         </div>
     )

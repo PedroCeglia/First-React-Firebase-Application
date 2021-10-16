@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Login from '../Login'
-import Cadastro from '../Cadastro'
+import Login from './Login'
+import Cadastro from './Cadastro'
 import './style.css'
 
 export default function Enter(){
@@ -19,14 +19,17 @@ export default function Enter(){
     }
 
     return(
-        <div className='container-enter'>
-            <div className='content-logIn'>
-                <Login change={changeToSingIn}/>
-            </div>
-            <div className='content-background'></div>
-            <div className='content-singIn'>
-                <Cadastro change={changeToLogIn}/>
-            </div>
+        <div className='container-enter-main'>
+            <div className='container-enter-content'>
+                <div className='content-logIn'>
+                    <Login change={changeToSingIn}/>
+                </div>
+                <div className='content-background'></div>
+                <div className='content-singIn'>
+                    <Cadastro change={changeToLogIn}/>
+                </div>
+            </div>            
         </div>
+
     )
 }
