@@ -27,7 +27,7 @@ export default function Login(props){
                 placeholder="Senha">
             </input>
             <div className='login-buttons'>
-                <Link to='/home' onClick={recuperandoCampos}>Logar</Link>
+                <button onClick={recuperandoCampos}>Logar</button>
                 <button className='button-a' onClick={props.change}>Não Possui Uma Conta?</button>                
             </div>
         </div>

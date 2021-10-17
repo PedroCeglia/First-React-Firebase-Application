@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth()
+export const auth = getAuth()
 const database = getDatabase();
 
 export const verificaSeUsuarioEstaLogado = () => {
@@ -57,10 +57,11 @@ export const criaContaUsuario = (email, senha, nome) => {
             criandoUsuarioDatabase(user.uid, user.email, nome)
         })
         .catch((erro) => {
-        const errorCode = erro.code;
-        const errorMessage = erro.message;
-        console.log("ERROR");
-        console.log(errorCode, errorMessage);
+            if(erro){
+                const errorCode = erro.code;
+                console.log(errorCode)
+                return errorCode                
+            }
         })
 }
 export const logandoUsuario = (email, senha) => {
@@ -68,7 +69,13 @@ export const logandoUsuario = (email, senha) => {
         .then((userCredential) => {
 
         })
-        .catch(() => {})
+        .catch((erro) => {
+            if(erro){
+                const errorCode = erro.code;
+                console.log(errorCode)
+                return errorCode                
+            }
+        })
 }
 export const logOutUser = () => {
     signOut(auth)
@@ -92,5 +99,4 @@ function writeUserData(userId, name, email, imageUrl) {
   });
 }
 */ 
-
 export default app
