@@ -1,5 +1,5 @@
 .main-header-nav{
-    background-color: #dad8d8a6;
+    background-color: #dad8d877;
     width: 30vw;
     min-width: 300px;
 
@@ -20,6 +20,8 @@
 
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
+
 }
 .main-header-nav .icons-header-nav{
     display: flex;
