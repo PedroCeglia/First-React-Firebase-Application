@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../Widget/Header";
-import { Link } from "react-router-dom";
-import { onAuthStateChanged } from "@firebase/auth";
-import { auth,verificaSeUsuarioEstaLogado, logOutUser } from "../../Server/FirebaseConfig";
 import { useHistory } from "react-router";
+import './style.css'
+
+// Import Firebase 
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth, logOutUser } from "../../Server/FirebaseConfig";
+
+// Import Widgets
+import ContentMain from "../../Widget/ContentMain";
+import NavMain from "../../Widget/NavMain"
 
 export default function Home(){
     
@@ -25,11 +30,9 @@ export default function Home(){
     },[isLog])
     
     return(
-        <div>
-            <Header/>
-            <button onClick={verificaSeUsuarioEstaLogado}>Clique e veja</button>
-            <button onClick={logOutUser}>Clique e saia</button>
-            <Link to='/'>voltar</Link>
+        <div className="home-main">
+            <NavMain/>
+            <ContentMain/>
         </div>
     )
 }

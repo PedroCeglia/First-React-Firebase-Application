@@ -1,0 +1,44 @@
+.main-header-content{
+    background-color: #dad8d8a6;
+    width: 70vw;
+    min-width: 300px;
+    border-left: rgba(0,0,0,0.2) solid 1px;
+    border-bottom: rgba(0,0,0,0.2) solid 1px;
+
+    height: 55px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-header-content .user-date-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-header-content .user-date-content img{
+    width: 45px;
+    height: 45px;
+
+    margin: 0 20px;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+.main-header-content .user-date-content h3{
+    color: rgba(0,0,0,0.8);
+} 
+.main-header-content .user-date-content span{
+    color: rgba(0,0,0,0.6);
+}
+.main-header-content .icons-header-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-header-content .icons-header-content img{
+    width: 20px;
+    height: 20px;
+
+    margin: 0 20px;
+}

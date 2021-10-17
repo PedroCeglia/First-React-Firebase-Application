@@ -1,0 +1,35 @@
+.main-header-nav{
+    background-color: #dad8d8a6;
+    width: 30vw;
+    min-width: 300px;
+
+    height: 55px;
+
+    border-bottom: rgba(0,0,0,0.2) solid 1px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.main-header-nav img{
+    width: 45px;
+    height: 45px;
+
+    margin: 0 20px;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+.main-header-nav .icons-header-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-header-nav .icons-header-nav img{
+    width: 25px;
+    height: 25px;
+    margin: 0 10px;
+
+    border-radius: 0;
+}

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import './style.css';
 
 // firebase Import
-import {logOutUser, verificaSeUsuarioEstaLogado, auth} from '../../Server/FirebaseConfig'
+import {auth} from '../../Server/FirebaseConfig'
 import { onAuthStateChanged } from '@firebase/auth';
 
 //Widgets Import
@@ -34,13 +34,7 @@ function Intro(){
   return (
     <div className="App">
       <Header/>
-      <button onClick={logOutUser}>Clique Sair</button>
-      <button onClick={verificaSeUsuarioEstaLogado}>Clique e veja</button>
       <Enter/> 
-      <div className='opa5city'>
-             
-      </div>
- 
     </div>
   );
 }
