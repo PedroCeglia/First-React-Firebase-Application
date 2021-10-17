@@ -59,6 +59,20 @@ export const criaContaUsuario = (email, senha, nome) => {
         .catch((erro) => {
             if(erro){
                 const errorCode = erro.code;
+                switch (errorCode){
+                    case 'auth/invalid-email':
+                        alert('Digite um valor de e-mail valido! Ex) ...@gmail.com')
+                        break
+                    case 'auth/email-already-exists':
+                        alert('Já existe um usuario com este e-mail!')
+                        break
+                    case 'auth/weak-password':
+                        alert('Digite uma senha com no minimo 6 digitos')
+                        break        
+                    default:
+                        alert('Erro Prencha todos os Campos de Forma Correta')
+                        break                             
+                }
                 console.log(errorCode)
                 return errorCode                
             }
@@ -72,6 +86,20 @@ export const logandoUsuario = (email, senha) => {
         .catch((erro) => {
             if(erro){
                 const errorCode = erro.code;
+                switch (errorCode){
+                    case 'auth/user-not-found':
+                        alert('Não há registro de usuário existente correspondente ao identificador fornecido.')
+                        break
+                    case 'auth/invalid-email':
+                        alert('Digite um valor de e-mail valido! Ex) ...@gmail.com')
+                        break
+                    case 'auth/wrong-password' :
+                        alert('Senha Incorreta, tente de novo!')
+                        break   
+                    default:
+                        alert('Erro Prencha todos os Campos de Forma Correta')
+                        break       
+                }
                 console.log(errorCode)
                 return errorCode                
             }

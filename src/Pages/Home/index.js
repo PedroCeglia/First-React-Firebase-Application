@@ -12,7 +12,7 @@ export default function Home(){
     useEffect(async ()=>{
 
         // Verifica se o Usuario esta deslogado
-        onAuthStateChanged(auth, (user) =>{
+        await onAuthStateChanged(auth, (user) =>{
             if(user){
                 setIsLog(false)
             }else{
