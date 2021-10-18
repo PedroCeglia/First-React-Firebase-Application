@@ -1,0 +1,47 @@
+.content-content .mensage-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+
+    width: 70vw;
+    min-width: 300px;
+
+    z-index: 2;
+}
+.content-content .mensage-list div{
+
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+
+    max-width: 30vw;
+    min-width: 120px;
+    overflow-x: hidden;
+}
+.content-content .mensage-list .sms-you{
+    align-self: flex-end;
+    background-color: rgba(153, 255, 50, 0.8);
+}
+.content-content .mensage-list .sms-friend{
+    align-self: flex-start;
+    background-color: thistle;
+}
+.content-content .mensage-list div .sms-hour{
+    font-size: 10px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.5);
+}
+.content-content .mensage-list .sms-you .sms-hour{
+
+    margin-right: 10px;
+}
+.content-content .mensage-list .sms-friend .sms-hour{
+    margin-left: 10px;
+}

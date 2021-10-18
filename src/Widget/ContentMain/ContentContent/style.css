@@ -7,6 +7,7 @@
 }
 .content-content{
     position: relative;
+    overflow-y: hidden;
 }
 .content-content img.background{
     position: absolute;
@@ -14,36 +15,5 @@
     left: 0;
     z-index: 1;
 }
-.content-content .keyboard-chat{
-    position: absolute;
-    bottom: 0;
-    z-index: 2;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    
-    background-color: #dad8d8;
 
-    width: 70vw;
-    min-width: 300px;
-    min-height: 60px;
-}
-.content-content .keyboard-chat img{
-    width: 20px;
-    height: 20px;
-
-    object-fit: cover;
-}
-.content-content .keyboard-chat input{
-    width: 60vw;
-    min-width: 200px;
-
-    min-height: 50px;
-    padding: 0 10px;
-
-    font-size: 1.2em;
-
-    border: none;
-    border-radius: 20px;
-}
