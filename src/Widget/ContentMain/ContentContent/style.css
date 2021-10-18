@@ -7,7 +7,6 @@
 }
 .content-content{
     position: relative;
-    overflow-y: hidden;
 }
 .content-content img.background{
     position: absolute;

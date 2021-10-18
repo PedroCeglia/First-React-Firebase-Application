@@ -45,7 +45,49 @@ export default function MensageList(){
             <Mensage 
                 smsClass='sms-friend'
                 smsHour='12:00'
-                mensage='To!!ddddddddddddddddddddddddd \n dddddddddddddddddddddd'
+                mensage='To!!ddddddddddddddddddddddddd  dddddddddddddddddddddd'
+            />            
+            <Mensage 
+                smsClass='sms-you'
+                smsHour='12:00'
+                mensage='Oi'
+            />
+            <Mensage 
+                smsClass='sms-friend'
+                smsHour='12:00'
+                mensage='Oi'
+            />
+            <Mensage 
+                smsClass='sms-you'
+                smsHour='12:00'
+                mensage='Tudo bem?'
+            />
+            <Mensage 
+                smsClass='sms-friend'
+                smsHour='12:00'
+                mensage='Tudo, e você?'
+            />
+            <Mensage 
+                smsClass='sms-you'
+                smsHour='12:00'
+                mensage='To bem!'
+            />
+            <Mensage 
+                smsClass='sms-friend'
+                smsHour='12:00'
+                mensage='Que Bom!'
+            />
+            <Mensage 
+                smsClass='sms-you'
+                smsHour='12:00'
+                mensage='Ta afim de Surfar?'
+            />
+            <Mensage 
+                smsClass='sms-friend'
+                smsHour='12:00'
+                mensage='Eu so sei oque eu quero pra mim e não é escutar voces porque minha mae
+                Eu so sei oque eu quero pra mim e não é escutar voces porque minha mae
+                Eu so sei oque eu quero pra mim e não é escutar voces porque minha mae'
             />            
         </div>
     )

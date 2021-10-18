@@ -1,0 +1,37 @@
+
+.sms-you, .sms-friend{
+
+    position: relative;
+    
+    margin: 10px;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+
+    max-width: 50vw;
+
+    min-width: auto;
+    min-height: auto;
+    padding: 30px;
+
+    overflow: hidden;
+}
+.sms-you{
+    align-self: flex-end;
+    background-color: rgba(153, 255, 50, 0.9);
+}
+.sms-friend{
+    align-self: flex-start;
+    background-color: thistle;
+}
+.sms-hour{
+    font-size: 10px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
+}
