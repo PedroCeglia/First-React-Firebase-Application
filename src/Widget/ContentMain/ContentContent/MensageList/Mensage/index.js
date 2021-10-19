@@ -3,9 +3,9 @@ import './style.css'
 
 export default function Mensage(props){
     return(
-        <div className={props.smsClass}>
-            <span className='sms'>{props.mensage}</span>
-            <span className='sms-hour'>{props.smsHour}</span>
-        </div>
+       <p className={props.smsClass}>
+           {props.mensage}
+           <span className='sms-hour'>{props.smsHour}</span>
+       </p>
     )
 }

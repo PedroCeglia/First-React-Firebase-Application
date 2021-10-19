@@ -1,7 +1,6 @@
 
 .sms-you, .sms-friend{
 
-    position: relative;
     
     margin: 10px;
     border-radius: 20px;
@@ -15,11 +14,7 @@
 
     max-width: 50vw;
 
-    min-width: auto;
-    min-height: auto;
-    padding: 30px;
-
-    overflow: hidden;
+    padding: 10px;
 }
 .sms-you{
     align-self: flex-end;
@@ -32,6 +27,7 @@
 .sms-hour{
     font-size: 10px;
     font-weight: normal;
+    align-self: flex-end;
     color: rgba(0, 0, 0, 0.5);
     margin-left: 10px;
 }
