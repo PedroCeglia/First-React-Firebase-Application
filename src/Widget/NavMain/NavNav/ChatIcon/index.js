@@ -1,16 +1,16 @@
 import React from "react";
 import './style.css'
-
-export default function ChatIcon(){
+//'assets/perfil.png' 
+export default function ChatIcon(props){
     return(
         <div className='chat-item'>
             <div className='perfil-data'>
                 <img className='perfil' 
-                    src='assets/perfil.png' 
+                    src={props.imgSrc} 
                     alt='Friend User Perfil Photo'
                 />
                 <div className='user-data-chat'>
-                    <h4>User Name</h4>
+                    <h4>{props.name}</h4>
                     <span>last mensage</span>
                 </div>                
             </div>

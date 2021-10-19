@@ -5,6 +5,7 @@ import  {initializeApp} from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import {getDatabase, set, ref} from 'firebase/database'
+import {getStorage} from 'firebase/storage'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB_k45UQA_2SxL9vso1dYahzxHBfdGHQRI",
@@ -19,7 +20,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth()
-const database = getDatabase();
+export const database = getDatabase();
+export const storage = getStorage();
 
 export const verificaSeUsuarioEstaLogado = () => {
     if(auth.currentUser != null){
