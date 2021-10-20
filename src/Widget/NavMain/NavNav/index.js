@@ -23,10 +23,15 @@ onValue(dbRef, (snapshot) => {
 */ 
 
 export default function NavNav(){
-    let userId = auth.currentUser.uid
+    let userId
+    if(auth.currentUser != null)
+        userId = auth.currentUser.uid
+
+    let idUserKey = 0
 
     const [listaUsuario, setListaUsuario] = useState([])
     useEffect(()=>{
+    if(auth.currentUser != null){
         let listaNovaUsuarios = []
         const usuariosRef = ref(database, 'usuarios')
         onValue(usuariosRef, (snapshot) => {
@@ -38,12 +43,11 @@ export default function NavNav(){
             })
             setListaUsuario(listaNovaUsuarios)
         })        
-    },[])
+    }},[])
     useEffect(()=>{
         console.log(listaUsuario)
     },[listaUsuario])
-
-
+    
     return (
         <div className='nav-nav'>
             <div className='search-chat'>
@@ -52,7 +56,10 @@ export default function NavNav(){
             </div>
             <div className='chat-list'>
                 {
+                    
+
                     listaUsuario.map((user)=>{
+                        idUserKey++
                         let srcImg
                         if(user.foto!=null){
                             srcImg = user.foto
@@ -61,6 +68,7 @@ export default function NavNav(){
                         }
                         return(
                             <ChatIcon
+                                key={idUserKey}
                                 name = {user.nome}
                                 imgSrc = {srcImg}  
                             />                            
