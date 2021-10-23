@@ -4,7 +4,7 @@ import  {initializeApp} from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from 'firebase/auth'
-import {getDatabase, set, ref, update} from 'firebase/database'
+import {getDatabase, set, ref, update, child, get} from 'firebase/database'
 import {getStorage} from 'firebase/storage'
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -56,7 +56,7 @@ export function alterarNome(authRef, nome, databaseRef){
     displayName: nome
     }).then(() => {
     // Profile updated!
-    alteraNomeDatabase(authRef.currentUser, nome, databaseRef)
+    setNameDatabase(authRef.currentUser, nome, databaseRef)
     // ...
     }).catch((error) => {
     // An error occurred
@@ -133,34 +133,14 @@ export const criandoUsuarioDatabase = (uidUser, emailUser, nameUser) =>{
         }
     )
 }
-export function alteraNomeDatabase(user, nameUser, dataRef){
-    update(ref(database,`usuarios/${user.uid}`),{
+function setNameDatabase(user, nameUser, dataRef){
+    update(ref(dataRef,`usuarios/${user.uid}`),{
         nome:nameUser
     })
 }
-/*
-function writeNewPost(uid, username, picture, title, body) {
-  const db = getDatabase();
-
-  // A post entry.
-  const postData = {
-    author: username,
-    uid: uid,
-    body: body,
-    title: title,
-    starCount: 0,
-    authorPic: picture
-  };
-
-  // Get a key for a new Post.
-  const newPostKey = push(child(ref(db), 'posts')).key;
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  const updates = {};
-  updates['/posts/' + newPostKey] = postData;
-  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
-  return update(ref(db), updates);
+export function setDescriptionDatabase(dataRef, user, description){
+    update(ref(dataRef, `usuarios/${user.uid}`),{
+        descricao:description
+    })
 }
- */
 export default app

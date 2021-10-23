@@ -6,7 +6,7 @@ import ConfigBody from './ConfigBody'
 
 export default function Config(){
     return(
-        <div className='other active'>
+        <div className='other'>
             <div className='perfil active'>
                 <ConfigHeader/>
                 <ConfigBody/>
