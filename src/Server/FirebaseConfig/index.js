@@ -3,8 +3,8 @@
 import  {initializeApp} from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-import {getDatabase, set, ref} from 'firebase/database'
+import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import {getDatabase, set, ref, update} from 'firebase/database'
 import {getStorage} from 'firebase/storage'
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth()
+
 export const database = getDatabase();
 export const storage = getStorage();
 
@@ -50,12 +51,25 @@ export const listenerVerificaUsuarioLogado = () => {
         }
     })
 }
+export function alterarNome(authRef, nome, databaseRef){
+    updateProfile(authRef.currentUser, {
+    displayName: nome
+    }).then(() => {
+    // Profile updated!
+    alteraNomeDatabase(authRef.currentUser, nome, databaseRef)
+    // ...
+    }).catch((error) => {
+    // An error occurred
+    // ...
+    });
+}
 
 export const criaContaUsuario = (email, senha, nome) => {
     createUserWithEmailAndPassword(auth, email, senha)
         .then((userCredential) => {
             // Conta Criada
             const user = userCredential.user
+            alterarNome(auth, nome)
             criandoUsuarioDatabase(user.uid, user.email, nome)
         })
         .catch((erro) => {
@@ -119,14 +133,34 @@ export const criandoUsuarioDatabase = (uidUser, emailUser, nameUser) =>{
         }
     )
 }
-/*
-function writeUserData(userId, name, email, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
+export function alteraNomeDatabase(user, nameUser, dataRef){
+    update(ref(database,`usuarios/${user.uid}`),{
+        nome:nameUser
+    })
 }
-*/ 
+/*
+function writeNewPost(uid, username, picture, title, body) {
+  const db = getDatabase();
+
+  // A post entry.
+  const postData = {
+    author: username,
+    uid: uid,
+    body: body,
+    title: title,
+    starCount: 0,
+    authorPic: picture
+  };
+
+  // Get a key for a new Post.
+  const newPostKey = push(child(ref(db), 'posts')).key;
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  updates['/posts/' + newPostKey] = postData;
+  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+  return update(ref(db), updates);
+}
+ */
 export default app

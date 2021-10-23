@@ -134,6 +134,9 @@
     width: 90%;
     padding: 10px;
     border: none;
+    
+    border-bottom: 2px solid seagreen;
+
 }
 .other.active .perfil .body-perfil-menu-icon .inputs-area div div img{
     margin-left: 5px;

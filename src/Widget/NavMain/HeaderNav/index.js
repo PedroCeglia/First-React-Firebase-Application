@@ -18,10 +18,14 @@ export default function HeaderNav(){
         logOutUser()
         history.push('/')
     }
+    function otherToggle(){
+        let other = document.querySelector('.other')
+        other.classList.toggle('active')
+    }
 
     let listaFunctionMenu =[
         {key:1, name:'Sair', voidOnClick: sair},
-        {key:2, name:'Perfi', voidOnClick: null}
+        {key:2, name:'Perfi', voidOnClick: otherToggle}
     ]
     function handleMenuIcon(){
         let menu = document.querySelector('.icon-menu-query')

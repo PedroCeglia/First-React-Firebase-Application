@@ -8,19 +8,7 @@ import ChatIcon from "./ChatIcon";
 // Import Firebase
 import { auth, database } from "../../../Server/FirebaseConfig";
 import {ref, onValue} from "firebase/database";
-/*
-const db = getDatabase();
-const starCountRef = ref(db, 'posts/' + postId + '/starCount');
-onValue(dbRef, (snapshot) => {
-  snapshot.forEach((childSnapshot) => {
-    const childKey = childSnapshot.key;
-    const childData = childSnapshot.val();
-    // ...
-  });
-}, {
-  onlyOnce: true
-});
-*/ 
+
 
 export default function NavNav(){
     let userId

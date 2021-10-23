@@ -4,7 +4,7 @@ import './style.css'
 
 // Import Firebase 
 import { onAuthStateChanged } from "@firebase/auth";
-import { auth, logOutUser } from "../../Server/FirebaseConfig";
+import { auth} from "../../Server/FirebaseConfig";
 
 // Import Widgets
 import ContentMain from "../../Widget/ContentMain";
@@ -14,10 +14,10 @@ export default function Home(){
     
     const history = useHistory() 
     const [isLog, setIsLog] = useState(false)     
-    useEffect(async ()=>{
+    useEffect(()=>{
 
         // Verifica se o Usuario esta deslogado
-        await onAuthStateChanged(auth, (user) =>{
+        onAuthStateChanged(auth, (user) =>{
             if(user){
                 setIsLog(false)
             }else{
