@@ -44,8 +44,6 @@ export default function NavNav(){
             </div>
             <div className='chat-list'>
                 {
-                    
-
                     listaUsuario.map((user)=>{
                         idUserKey++
                         let srcImg

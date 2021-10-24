@@ -9,14 +9,17 @@ export default function ConfigBody(){
     let nome =auth.currentUser.displayName
     let dataRef = ref(database, `usuarios/${auth.currentUser.uid}`)
     
+    // Propriedades para alterarmos dados do usuario
+    let changesUser = 0
+    const [userChange, setUserChange] = useState(changesUser)
 
-    
     const [userName, setUserName] = useState(nome)
     // Valor do Input
     const [userDescription, setUserDescription] = useState("")
     // Valor do DB
     const [description, setDescription] = useState("")
     
+
     // Use State For Images
     const [srcImage, setSrcImage] = useState('assets/perfil.png')
     const [srcInputName, setSrcInputname] = useState('assets/pencil.png')
@@ -38,14 +41,18 @@ export default function ConfigBody(){
                 }
             }
         })
-    },[])
+    },[userChange])
     // Call Listener to check User Data
     useEffect(()=>{
         onChildChanged(dataRef, (data) => {
+            
+            changesUser++
+            setUserChange(changesUser)
+            /*
             setSrcImage(data.val())
             // data.val() retorna oque foi modificado
             // no caso só a foto
-            // porem pode retornar uma lista
+            // porem pode retornar uma lista 8*/
         });
     })
 
