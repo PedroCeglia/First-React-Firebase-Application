@@ -2,34 +2,52 @@ import React, { useState } from 'react'
 import { useEffect } from 'react/cjs/react.development'
 
 // Import Firebase
-import { auth, database, alterarNome} from '../../../../Server/FirebaseConfig'
-import { get, ref } from '@firebase/database'
+import { auth, database, alterarNome, setDescriptionDatabase, setPerfilFoto} from '../../../../Server/FirebaseConfig'
+import { get, ref, onChildChanged } from '@firebase/database'
 
 export default function ConfigBody(){
     let nome =auth.currentUser.displayName
-    let descricao =""
-    
-    const [description, setDescription] = useState("")
-    const [userName, setUserName] = useState(nome)
-    const [userDescription, setUserDescription] = useState("")
+    let dataRef = ref(database, `usuarios/${auth.currentUser.uid}`)
     
 
+    
+    const [userName, setUserName] = useState(nome)
+    // Valor do Input
+    const [userDescription, setUserDescription] = useState("")
+    // Valor do DB
+    const [description, setDescription] = useState("")
+    
+    // Use State For Images
+    const [srcImage, setSrcImage] = useState('assets/perfil.png')
     const [srcInputName, setSrcInputname] = useState('assets/pencil.png')
     const [srcInputDesc, setSrcInputDesc] = useState('assets/pencil.png')
 
     // Get DataUser From Database
     useEffect(()=>{
-        get(ref(database, `usuarios/${auth.currentUser.uid}`)).then((snapshot)=>{
+        get(dataRef).then((snapshot)=>{
             if(snapshot.exists()){
                 let usuario = snapshot.val()
                 console.log(usuario)
                 console.log(usuario.descricao)
-
-                setDescription(usuario.descricao)
-                setUserDescription(usuario.descricao)
+                if(usuario.descricao!==null && usuario.descricao!==undefined){
+                    setDescription(usuario.descricao)
+                    setUserDescription(usuario.descricao)
+                }
+                if(usuario.foto !== null && usuario.foto !== undefined){
+                    setSrcImage(usuario.foto)
+                }
             }
         })
     },[])
+    // Call Listener to check User Data
+    useEffect(()=>{
+        onChildChanged(dataRef, (data) => {
+            setSrcImage(data.val())
+            // data.val() retorna oque foi modificado
+            // no caso só a foto
+            // porem pode retornar uma lista
+        });
+    })
 
     // If Inputs Change
     useEffect(()=>{
@@ -58,7 +76,11 @@ export default function ConfigBody(){
         }
     }
     function descriptionChange(){
+        setDescriptionDatabase(database, auth.currentUser, userDescription)
         setSrcInputDesc('assets/pencil.png')
+    }
+    function setFoto(src){
+        setPerfilFoto(auth.currentUser, src.target.files[0])
     }
     
     return(
@@ -68,8 +90,9 @@ export default function ConfigBody(){
                     <img src='assets/camera.png' alt='Camera Icon'/>
                     <span>Troque de foto</span>
                 </label>
-                <input className='input-file' type='file' id='input-foto-perfil'/>
-                <img src='assets/perfil.png' alt='Perfil Photo'/>
+                <input className='input-file' type='file' id='input-foto-perfil'
+                    onChange={setFoto}/>
+                <img src={srcImage} alt='Perfil Photo'/>
             </div>
             <div className='inputs-area'>
                 <div className='input-name'>
@@ -84,7 +107,7 @@ export default function ConfigBody(){
                     <label htmlFor='input-description' >Descrição :</label>
                     <div>
                         <input name='input-description' id='input-description' type='text'
-                            value={userDescription}    onChange={text => setUserDescription( text.target.value)}/>
+                            value={userDescription} onChange={text => setUserDescription( text.target.value)}/>
                         <img src={srcInputDesc} alt='Draw Icon' onClick={descriptionChange}/>                                
                     </div>                                
                 </div>
