@@ -1,5 +1,6 @@
 .icon-menu-query ~ .menu-container{
     position: absolute;
+    
     top: calc(100%);
     right: 5px;
 

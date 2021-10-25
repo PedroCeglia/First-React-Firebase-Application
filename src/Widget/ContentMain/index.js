@@ -13,11 +13,13 @@ export default function ContentMain(props){
     
     let dataRef = ref(database, `usuarios/${props.idDestinatario}`)
     let [user, setUser] = useState()
+    let [userId, setUserId] = useState()
     // Import User Destinatario from RealTime Database
         useEffect(()=>{
             get(dataRef).then(snapshot =>{ 
                 if(snapshot.exists()){
                     setUser(snapshot.val())
+                    setUserId(snapshot.key)
                 }
             })
         },[props.idDestinatario])
@@ -28,7 +30,7 @@ export default function ContentMain(props){
                 <HeaderContent 
                     userDestinatario={user}/>
                 <ContentContent
-                    userDestinatario={user}/>
+                    userIdDestinatario={userId}/>
             </div>
         )
     } else{
