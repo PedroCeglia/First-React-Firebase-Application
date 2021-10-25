@@ -3,11 +3,13 @@ import './style.css'
 
 // Import Widgets
 import ChatIcon from "./ChatIcon";
+import ContentMain from "../../ContentMain";
 
 
 // Import Firebase
 import { auth, database } from "../../../Server/FirebaseConfig";
 import {ref, onValue} from "firebase/database";
+
 
 
 export default function NavNav(){
@@ -37,33 +39,36 @@ export default function NavNav(){
     },[listaUsuario])
     
     return (
-        <div className='nav-nav'>
-            <div className='search-chat'>
-                <img src='assets/search.png' alt='Search Icon' title='Search Chat'/>
-                <input type='text' placeholder='Search a Chat'/>
+        <div className='nav-nav-first'>
+            <div className='nav-nav'>
+                <div className='search-chat'>
+                    <img src='assets/search.png' alt='Search Icon' title='Search Chat'/>
+                    <input type='text' placeholder='Search a Chat'/>
+                </div>
+                <div className='chat-list'>
+                    {
+                        listaUsuario.map((user)=>{
+                            idUserKey++
+                            let srcImg
+                            if(user.foto!=null){
+                                srcImg = user.foto
+                            } else{
+                                srcImg='assets/perfil.png'
+                            }
+                            return(
+                                <ChatIcon
+                                    key={idUserKey}
+                                    name = {user.nome}
+                                    imgSrc = {srcImg}  
+                                />                            
+                            )
+                        })
+                    }   
+                    
+                </div>
             </div>
-            <div className='chat-list'>
-                {
-                    listaUsuario.map((user)=>{
-                        idUserKey++
-                        let srcImg
-                        if(user.foto!=null){
-                            srcImg = user.foto
-                        } else{
-                            srcImg='assets/perfil.png'
-                        }
-                        return(
-                            <ChatIcon
-                                key={idUserKey}
-                                name = {user.nome}
-                                imgSrc = {srcImg}  
-                            />                            
-                        )
-                    })
-
-                }   
-                
-            </div>
+            <ContentMain/>            
         </div>
+
     )
 }

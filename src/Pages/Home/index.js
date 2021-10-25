@@ -32,7 +32,6 @@ export default function Home(){
     return(
         <div className="home-main">
             <NavMain/>
-            <ContentMain/>
         </div>
     )
 }
