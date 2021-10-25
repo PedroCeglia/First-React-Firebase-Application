@@ -2,8 +2,11 @@ import React from "react";
 import './style.css'
 //'assets/perfil.png' 
 export default function ChatIcon(props){
+    function handleClick2(){
+        props.handleClick(props.idDestinatario)
+    }
     return(
-        <div className='chat-item'>
+        <div className='chat-item' onClick={handleClick2}>
             <div className='perfil-data'>
                 <img className='perfil' 
                     src={props.imgSrc} 

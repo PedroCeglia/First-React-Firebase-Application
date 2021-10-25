@@ -1,5 +1,6 @@
 .container-main{
     position: relative;
+    width: 100vw;
 }
 .other{
     position: absolute;

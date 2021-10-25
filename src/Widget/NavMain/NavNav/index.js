@@ -13,31 +13,53 @@ import {ref, onValue} from "firebase/database";
 
 
 export default function NavNav(){
+    // Recuperando Id Do Usuario Atual
     let userId
     if(auth.currentUser != null)
         userId = auth.currentUser.uid
-
+    
+    // Key List.map() = listaUsuario    
     let idUserKey = 0
 
+    // UseStates 
+    // lista de usuarios
     const [listaUsuario, setListaUsuario] = useState([])
+    // lista de id dos usuarios
+    const [listaIdUsuario, setListaIdUsuario] = useState([])
+    // idDestinatario Escolhido
+    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
+
+    // Recuperando Lista de Usuarios
     useEffect(()=>{
-    if(auth.currentUser != null){
-        let listaNovaUsuarios = []
-        const usuariosRef = ref(database, 'usuarios')
-        onValue(usuariosRef, (snapshot) => {
-            snapshot.forEach((childSnapshot) =>{
-                const childKey = childSnapshot.key
-                if(userId !== childKey ){
-                    listaNovaUsuarios.push(childSnapshot.val())
-                }
-            })
-            setListaUsuario(listaNovaUsuarios)
-        })        
-    }},[])
+        if(auth.currentUser != null){
+            let listaNovaUsuarios = []
+            let listaNovaIdUsuarios = []
+            const usuariosRef = ref(database, 'usuarios')
+            onValue(usuariosRef, (snapshot) => {
+                snapshot.forEach((childSnapshot) =>{
+                    const childKey = childSnapshot.key
+                    if(userId !== childKey ){
+                        listaNovaUsuarios.push(childSnapshot.val())
+                        listaNovaIdUsuarios.push(childSnapshot.key)
+                    }
+                })
+                setListaUsuario(listaNovaUsuarios)
+                setListaIdUsuario(listaNovaIdUsuarios)
+            })        
+        }
+    },[])
+    // Teste
     useEffect(()=>{
         console.log(listaUsuario)
     },[listaUsuario])
     
+
+    // OnClick Chat Icon
+    function handleChatIcon(idDestinatario){
+        setIdDestinatarioEscolhidos(idDestinatario)
+        console.log(idDestinatario)
+    }
+
     return (
         <div className='nav-nav-first'>
             <div className='nav-nav'>
@@ -48,6 +70,7 @@ export default function NavNav(){
                 <div className='chat-list'>
                     {
                         listaUsuario.map((user)=>{
+                            let idUsuarioChatIcon = listaIdUsuario[idUserKey]
                             idUserKey++
                             let srcImg
                             if(user.foto!=null){
@@ -59,7 +82,9 @@ export default function NavNav(){
                                 <ChatIcon
                                     key={idUserKey}
                                     name = {user.nome}
-                                    imgSrc = {srcImg}  
+                                    imgSrc = {srcImg}
+                                    idDestinatario={idUsuarioChatIcon}
+                                    handleClick={handleChatIcon}  
                                 />                            
                             )
                         })
@@ -67,7 +92,9 @@ export default function NavNav(){
                     
                 </div>
             </div>
-            <ContentMain/>            
+            <ContentMain
+                idDestinatario={idDestinatarioEscolhidos} 
+            />            
         </div>
 
     )
