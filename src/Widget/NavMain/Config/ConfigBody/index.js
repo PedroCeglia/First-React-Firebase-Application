@@ -3,21 +3,23 @@ import { useEffect } from 'react/cjs/react.development'
 
 // Import Firebase
 import { auth, database, alterarNome, setDescriptionDatabase, setPerfilFoto} from '../../../../Server/FirebaseConfig'
-import { get, ref, onChildChanged } from '@firebase/database'
+import { get, ref, onChildChanged, set } from '@firebase/database'
 
 export default function ConfigBody(){
-    let nome =auth.currentUser.displayName
-    let dataRef = ref(database, `usuarios/${auth.currentUser.uid}`)
-    
+    const [userAuthId, setUserAuthId] = useState('id')
+    const [userAuthName, setUserAuthName] = useState('nome')
+
+    let dataRef = ref(database, `usuarios/${userAuthId}`)
+     
     // Propriedades para alterarmos dados do usuario
     let changesUser = 0
     const [userChange, setUserChange] = useState(changesUser)
 
-    const [userName, setUserName] = useState(nome)
+    const [userName, setUserName] = useState("nome")
     // Valor do Input
-    const [userDescription, setUserDescription] = useState("")
+    const [userDescription, setUserDescription] = useState("description")
     // Valor do DB
-    const [description, setDescription] = useState("")
+    const [description, setDescription] = useState("description")
     
 
     // Use State For Images
@@ -25,13 +27,22 @@ export default function ConfigBody(){
     const [srcInputName, setSrcInputname] = useState('assets/pencil.png')
     const [srcInputDesc, setSrcInputDesc] = useState('assets/pencil.png')
 
+    // Use State Verify User Log
+    useEffect(()=>{
+        if (auth.currentUser != null) {
+            setUserAuthId(auth.currentUser.uid)
+            setUserAuthName(auth.currentUser.displayName)
+        } else{
+            setUserAuthId('')
+            setUserAuthName('')
+        }
+    }, [auth.currentUser])
+
     // Get DataUser From Database
     useEffect(()=>{
         get(dataRef).then((snapshot)=>{
             if(snapshot.exists()){
                 let usuario = snapshot.val()
-                console.log(usuario)
-                console.log(usuario.descricao)
                 if(usuario.descricao!==null && usuario.descricao!==undefined){
                     setDescription(usuario.descricao)
                     setUserDescription(usuario.descricao)
@@ -39,9 +50,10 @@ export default function ConfigBody(){
                 if(usuario.foto !== null && usuario.foto !== undefined){
                     setSrcImage(usuario.foto)
                 }
+                setUserName(usuario.nome)
             }
         })
-    },[userChange])
+    },[userChange, userAuthId])
     // Call Listener to check User Data
     useEffect(()=>{
         onChildChanged(dataRef, (data) => {
@@ -54,7 +66,7 @@ export default function ConfigBody(){
             // no caso só a foto
             // porem pode retornar uma lista 8*/
         });
-    })
+    },[userAuthId])
 
     // If Inputs Change
     useEffect(()=>{
@@ -65,7 +77,7 @@ export default function ConfigBody(){
         }
     },[userDescription, description])
     useEffect(()=>{
-        if(userName != nome){
+        if(userName != userAuthName){
             setSrcInputname('assets/check.png')
         }
     },[userName])

@@ -14,22 +14,16 @@ import Enter from '../../Widget/Enter';
 
 function Intro(){
 
-  const history = useHistory()            
-  const [isLog, setIsLog] = useState(false)     
+  const history = useHistory()             
   useEffect(async ()=>{
-      
       // Verifica se o Usuario esta deslogado
       onAuthStateChanged(auth, (user) =>{
           if(user){
-              setIsLog(true)
-          }else{
-              setIsLog(false)
-          }
-      })
-      if (isLog===true){
-          history.push('/home')
-      }       
-  },[isLog])
+              history.push('/home')
+            }
+        }
+      )
+  },[])
 
   return (
     <div className="App">

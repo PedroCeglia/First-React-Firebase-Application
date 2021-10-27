@@ -48,16 +48,11 @@ export default function NavNav(){
             })        
         }
     },[])
-    // Teste
-    useEffect(()=>{
-        console.log(listaUsuario)
-    },[listaUsuario])
     
 
     // OnClick Chat Icon
     function handleChatIcon(idDestinatario){
         setIdDestinatarioEscolhidos(idDestinatario)
-        console.log(idDestinatario)
     }
 
     return (

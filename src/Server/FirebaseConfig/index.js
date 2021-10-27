@@ -29,22 +29,19 @@ export const auth = getAuth()
 export const database = getDatabase();
 export const storage = firebase.storage()
 
+
 // Firebase Authentication
 export const verificaSeUsuarioEstaLogado = () => {
     if(auth.currentUser != null){
-        console.log("Possui usuario")
         return true
     }else{
-        console.log("Nenhum Usuario Logado")
         return false
     }
 }
 export const verificaSeUsuarioEstaDeslogado = () => {
     if(auth.currentUser != null){
-        console.log("Possui usuario")
         return false
     }else{
-        console.log("Nenhum Usuario Logado")
         return true
     }
 }

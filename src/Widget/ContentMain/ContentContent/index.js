@@ -14,10 +14,6 @@ export default function ContentContent(props){
     // Config Database Ref
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
 
-    
-    
-    
-
     useEffect(()=>{
         setIdDestinatarioEscolhidos(props.userIdDestinatario)
     },[props.userIdDestinatario])

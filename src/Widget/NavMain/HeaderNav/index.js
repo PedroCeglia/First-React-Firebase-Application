@@ -13,7 +13,9 @@ import { get, ref, onChildChanged } from '@firebase/database'
 export default function HeaderNav(){
 
     let history = useHistory()
-    let dataRef = ref(database, `usuarios/${auth.currentUser.uid}`)
+
+    const [userAuthId, setUserAuthId] = useState('')
+    let dataRef = ref(database, `usuarios/${userAuthId}`)
 
     // Propriedades para alterarmos dados do usuario
     let changesUser = 0
@@ -21,7 +23,15 @@ export default function HeaderNav(){
     const [srcPerfilImage, setSrcPerfilImage] = useState('assets/perfil.png')
     
 
-
+    // Use State Verify User Log
+    useEffect(()=>{
+        if (auth.currentUser != null) {
+            setUserAuthId(auth.currentUser.uid)
+        } else{
+            setUserAuthId('')
+        }
+    }, [auth.currentUser])
+    
     // Get DataUser From Database
     useEffect(()=>{
         get(dataRef).then((snapshot)=>{
@@ -32,24 +42,18 @@ export default function HeaderNav(){
                 }
             }
         })
-    },[userChange])
+    },[userChange, userAuthId])
     // Call Listener to check User Data
     useEffect(()=>{
         onChildChanged(dataRef, (data) => {
             
             changesUser++
             setUserChange(changesUser)
-            /*
-            setSrcImage(data.val())
-            // data.val() retorna oque foi modificado
-            // no caso só a foto
-            // porem pode retornar uma lista 8*/
         });
-    })
+    },[userAuthId])
 
     function sair(){
         logOutUser()
-        history.push('/')
     }
     function otherToggle(){
         let other = document.querySelector('.other')
