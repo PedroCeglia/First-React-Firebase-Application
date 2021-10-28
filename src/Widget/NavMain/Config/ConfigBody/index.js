@@ -4,11 +4,13 @@ import React from "react";
 import ConfigPerfil from "./ConfigPerfil";
 import ConfigContatos from "./ConfigContatos";
 
-export default function ConfigBody(){
+export default function ConfigBody(props){
     return(
         <div className='container-config-body'>
             <ConfigPerfil/>
-            <ConfigContatos/>
+            <ConfigContatos 
+                setContatoUserId = {props.setContatoUserId}
+            />
         </div>
         
     )

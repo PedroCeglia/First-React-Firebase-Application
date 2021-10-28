@@ -1,0 +1,15 @@
+/* Body Config Perfil*/
+.other.active .contatos.active .contato-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #c0b5b5;
+    width: 30vw;
+    min-width: 300px;
+    height: calc(100vh - 100px);
+}
+.other.active .container-config .contato-nav{
+    display: none;
+}

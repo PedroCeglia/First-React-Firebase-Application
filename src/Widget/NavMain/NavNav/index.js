@@ -12,7 +12,7 @@ import {ref, onValue} from "firebase/database";
 
 
 
-export default function NavNav(){
+export default function NavNav(props){
     // Recuperando Id Do Usuario Atual
     let userId
     if(auth.currentUser != null)
@@ -28,6 +28,13 @@ export default function NavNav(){
     const [listaIdUsuario, setListaIdUsuario] = useState([])
     // idDestinatario Escolhido
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
+
+    // Sera chamado se Um suario for escolhido pelos contatos
+    useEffect(()=>{
+        if(props.contatoUserId != null){
+            setIdDestinatarioEscolhidos(props.contatoUserId)
+        }
+    },[props.contatoUserId])
 
     // Recuperando Lista de Usuarios
     useEffect(()=>{

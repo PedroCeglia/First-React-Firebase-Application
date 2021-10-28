@@ -5,12 +5,14 @@ import './style.css'
 import ConfigHeader from './ConfigHeader'
 import ConfigBody from './ConfigBody'
 
-export default function Config(){
+export default function Config(props){
     
     function perfilToggler(){
+        let menuIcon = document.querySelector('.icon-menu-query')
         let other = document.querySelector('.other')
         let perfil = document.querySelector('.perfil.container-config')
         let perfilBody = document.querySelector('.body-perfil-menu-icon')
+        menuIcon.classList.toggle('disable')
         perfilBody.classList.toggle('active')
         other.classList.toggle('active')
         perfil.classList.toggle('active')
@@ -21,6 +23,7 @@ export default function Config(){
         other.classList.toggle('active')
         contatos.classList.toggle('active')
     }
+
     return(
         <div className='other'>
             <div className='container-config perfil'>
@@ -35,7 +38,9 @@ export default function Config(){
                     togglers={contatosToggler}
                     name="Contatos"
                 />
-                <ConfigBody/>
+                <ConfigBody
+                    setContatoUserId = {props.setContatoUserId}
+                />
             </div>
         </div>
     )

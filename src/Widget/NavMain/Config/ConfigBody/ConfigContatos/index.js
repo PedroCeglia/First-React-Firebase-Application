@@ -10,7 +10,7 @@ import ChatIcon from '../../../NavNav/ChatIcon';
 
 
 
-export default function ConfigContatos(){
+export default function ConfigContatos(props){
 
         // Recuperando Id Do Usuario Atual
         let userId
@@ -26,7 +26,6 @@ export default function ConfigContatos(){
         // lista de id dos usuarios
         const [listaIdUsuario, setListaIdUsuario] = useState([])
         // idDestinatario Escolhido
-        const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
     
         // Recuperando Lista de Usuarios
         useEffect(()=>{
@@ -50,11 +49,11 @@ export default function ConfigContatos(){
         
         // OnClick Chat Icon
         function handleChatIcon(idDestinatario){
-            setIdDestinatarioEscolhidos(idDestinatario)
+            props.setContatoUserId(idDestinatario)
         }
 
     return(
-        <div className='nav-nav'>
+        <div className='nav-nav contato-nav'>
             <div className='search-chat'>
                 <img src='assets/search.png' alt='Search Icon' title='Search Chat'/>
                 <input type='text' placeholder='Search a Chat'/>
