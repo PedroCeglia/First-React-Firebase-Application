@@ -168,6 +168,30 @@ function setImagePerfilDatabase(user, url){
         foto:url
     })
 }
+function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensagem){
+    set(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
+        idDestinatario:idUserAmigo,
+        idRemetente:idUserLogado,
+        isGroup:"false",
+        ultimaMensagem:ultimaMensagem,
+        usuarioExibicao:userAmigo
+    })
+    set(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
+        idDestinatario:idUserLogado,
+        idRemetente:idUserAmigo,
+        isGroup:"false",
+        ultimaMensagem:ultimaMensagem,
+        usuarioExibicao:userAmigo
+    })
+}
+function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
+    update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
+        ultimaMensagem:ultimaMensagem
+    })
+    update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
+        ultimaMensagem:ultimaMensagem
+    })
+}
 
 // Firebase Storage
 export function setPerfilFoto(user, image){
