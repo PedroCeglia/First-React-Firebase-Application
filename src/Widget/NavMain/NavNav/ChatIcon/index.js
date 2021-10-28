@@ -5,6 +5,7 @@ export default function ChatIcon(props){
     function handleClick2(){
         props.handleClick(props.idDestinatario)
     }
+    let listType =`other-data-chat ${props.type}`
     return(
         <div className='chat-item' onClick={handleClick2}>
             <div className='perfil-data'>
@@ -17,7 +18,7 @@ export default function ChatIcon(props){
                     <span>last mensage</span>
                 </div>                
             </div>
-            <div className='other-data-chat'>
+            <div className={listType}>
                 <span>18:50</span>
                 <div className='notify-chat'>
                     <img src='assets/mute.png' alt='Mute Icon'/>

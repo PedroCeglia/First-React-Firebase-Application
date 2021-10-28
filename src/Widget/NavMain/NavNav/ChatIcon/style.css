@@ -40,6 +40,9 @@
 .chat-item .user-data-chat span{
     color: rgba(0,0,0,0.6);
 }
+.chat-item .other-data-chat.none{
+    display: none;
+}
 .chat-item .other-data-chat{
     display: flex;
     flex-direction: column;

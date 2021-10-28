@@ -9,8 +9,6 @@
 
     background-color: #dad8d877;
     border-right: 1px solid rgba(0,0,0,0.2);
-
-    
     
 }
 .nav-nav .search-chat{
@@ -56,6 +54,6 @@
     border-top: 1px solid rgba(0,0,0,0.2);
 
     height: 490px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
  

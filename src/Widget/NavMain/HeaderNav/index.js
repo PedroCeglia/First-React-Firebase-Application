@@ -55,14 +55,24 @@ export default function HeaderNav(){
     function sair(){
         logOutUser()
     }
-    function otherToggle(){
+    function otherPerfilToggle(){
         let other = document.querySelector('.other')
+        let perfil = document.querySelector('.perfil.container-config')
+        let perfilBody = document.querySelector('.body-perfil-menu-icon')
+        perfilBody.classList.toggle('active')
         other.classList.toggle('active')
+        perfil.classList.toggle('active')
+    }
+    function otherContatosToggle(){
+        let other = document.querySelector('.other')
+        let contatos = document.querySelector('.contatos.container-config')
+        other.classList.toggle('active')
+        contatos.classList.toggle('active')
     }
 
     let listaFunctionMenu =[
         {key:1, name:'Sair', voidOnClick: sair},
-        {key:2, name:'Perfi', voidOnClick: otherToggle}
+        {key:2, name:'Perfi', voidOnClick: otherPerfilToggle}
     ]
     function handleMenuIcon(){
         let menu = document.querySelector('.icon-menu-query')
@@ -75,7 +85,8 @@ export default function HeaderNav(){
                 <img src={srcPerfilImage} alt='Sua Foto De Perfil'/>
                 <div className='icons-header-nav'>
                     <img src='assets/circle.png' alt='Status Icon' title='Status'/>        
-                    <img src='assets/conversando.png' alt='Criar Nova Conversa Icon' title='Nova Conversa'/>
+                    <img src='assets/conversando.png' alt='Criar Nova Conversa Icon' title='Nova Conversa'
+                        onClick={otherContatosToggle}/>
                     <div>
                         <img onClick={handleMenuIcon} className='icon-menu-query disable' src='assets/menu.png' alt='Menu Conversa Icon' title='Menu'/>
                         <MenuIcon listaMenus={listaFunctionMenu}/>

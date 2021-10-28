@@ -1,0 +1,23 @@
+/* Config Header */
+.other.active .container-config .cabecalho-menu-icon{
+    background-color: teal;
+    height: 100px;
+    width: 100%;
+
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.other .container-config .cabecalho-menu-icon img{
+    width: 20px;
+    height: 20px;
+
+    margin: 0 10px;
+    object-fit: cover;
+}
+.other .container-config .cabecalho-menu-icon span{
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 5px 5px 4px rgba(255,255,255,0.2);
+    font-size: 30px;
+}

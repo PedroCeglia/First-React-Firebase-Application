@@ -34,7 +34,7 @@ export default function NavNav(){
         if(auth.currentUser != null){
             let listaNovaUsuarios = []
             let listaNovaIdUsuarios = []
-            const usuariosRef = ref(database, 'usuarios')
+            const usuariosRef = ref(database, `conversas/${userId}`)
             onValue(usuariosRef, (snapshot) => {
                 snapshot.forEach((childSnapshot) =>{
                     const childKey = childSnapshot.key
@@ -48,7 +48,6 @@ export default function NavNav(){
             })        
         }
     },[])
-    
 
     // OnClick Chat Icon
     function handleChatIcon(idDestinatario){
@@ -68,15 +67,15 @@ export default function NavNav(){
                             let idUsuarioChatIcon = listaIdUsuario[idUserKey]
                             idUserKey++
                             let srcImg
-                            if(user.foto!=null){
-                                srcImg = user.foto
+                            if(user.usuarioExibicao.foto!=null){
+                                srcImg = user.usuarioExibicao.foto
                             } else{
                                 srcImg='assets/perfil.png'
                             }
                             return(
                                 <ChatIcon
                                     key={idUserKey}
-                                    name = {user.nome}
+                                    name = {user.usuarioExibicao.nome}
                                     imgSrc = {srcImg}
                                     idDestinatario={idUsuarioChatIcon}
                                     handleClick={handleChatIcon}  
