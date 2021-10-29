@@ -44,18 +44,24 @@ export default function KeyboardChat(props){
             
         }
     }
-    
+    function enviarEnter(e){
+        if(e.key == "Enter"){
+            enviar()
+        }
+    }
     function enviar(){
-        if(mensageText.length >1){
+        if(mensageText.length>=1){
            setConversas()
            setMensageText("")
+        } else{ 
+            alert("Digite Alguma Mensagem")
         }
     }
     return(
         <div className='keyboard-chat'>
             <img src='assets/emoji.png' alt='Emoji Icon' title='Emoji'/>
             <img src='assets/clip.png' alt='Attachment Icon' title='Attachment'/>
-            <input value={mensageText} onChange={text => setMensageText(text.target.value)} type='text'/>
+            <input value={mensageText} onKeyPress={e =>{ enviarEnter(e)}} onChange={text => setMensageText(text.target.value)} type='text'/>
             <img src='assets/send.png' onClick={enviar}/>
         </div>
     )

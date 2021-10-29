@@ -8,7 +8,7 @@ import ContentMain from "../../ContentMain";
 
 // Import Firebase
 import { auth, database } from "../../../Server/FirebaseConfig";
-import {ref, onValue} from "firebase/database";
+import {ref, onValue, onChildAdded} from "firebase/database";
 
 
 
@@ -17,7 +17,8 @@ export default function NavNav(props){
     let userId
     if(auth.currentUser != null)
         userId = auth.currentUser.uid
-    
+    const usuariosRef = ref(database, `conversas/${userId}`)
+
     // Key List.map() = listaUsuario    
     let idUserKey = 0
 
@@ -29,6 +30,9 @@ export default function NavNav(props){
     // idDestinatario Escolhido
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
 
+    const [changeTest, setChangeTest] = useState(0)
+    const [test, setTest] = useState(0)
+
     // Sera chamado se Um suario for escolhido pelos contatos
     useEffect(()=>{
         if(props.contatoUserId != null){
@@ -39,10 +43,13 @@ export default function NavNav(props){
     // Recuperando Lista de Usuarios
     useEffect(()=>{
         if(auth.currentUser != null){
-            let listaNovaUsuarios = []
-            let listaNovaIdUsuarios = []
-            const usuariosRef = ref(database, `conversas/${userId}`)
+            
+            setListaUsuario(listaUsuario)
+            setListaIdUsuario(listaIdUsuario)
+            
             onValue(usuariosRef, (snapshot) => {
+                let listaNovaUsuarios = []
+                let listaNovaIdUsuarios = []
                 snapshot.forEach((childSnapshot) =>{
                     const childKey = childSnapshot.key
                     if(userId !== childKey ){
@@ -55,6 +62,14 @@ export default function NavNav(props){
             })        
         }
     },[])
+    // Listener Add Mensage
+    useEffect(()=>{
+        if(idDestinatarioEscolhidos != undefined){
+            onChildAdded(usuariosRef, () => {
+                //setChangeTest(1)
+            })
+        }
+    },[idDestinatarioEscolhidos]) 
 
     // OnClick Chat Icon
     function handleChatIcon(idDestinatario){

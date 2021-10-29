@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './style.css'
 
 // Import Firebase
@@ -23,7 +23,17 @@ export default function MensageList(props){
     
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState(props.userIdDestinatario) 
 
-    
+    // Scroll Config
+    const messageEl = useRef(null);
+   
+    useEffect(() => {
+      if (messageEl) {
+        messageEl.current.addEventListener('DOMNodeInserted', event => {
+          const { currentTarget: target } = event;
+          target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+        });
+      }
+    }, [])
     
     // MensageList Private Var
     let newMensageList = []
@@ -52,7 +62,6 @@ export default function MensageList(props){
                     newMensageList = []
                     snapshot.forEach(childSnapshot =>{
                         newMensageList.push(childSnapshot.val())
-                        //console.log(childSnapshot.val())
                     })  
                     setMsgList(newMensageList)
                 } else{
@@ -71,7 +80,7 @@ export default function MensageList(props){
         }
     },[changeTest]) 
     return(
-        <div className='mensage-list'>
+        <div className='mensage-list' ref={messageEl}>
            { 
                 msgList.map(mensage =>{
                     let cclassSms
@@ -82,18 +91,16 @@ export default function MensageList(props){
                     } else{
                         cclassSms ='sms-friend'
                     }
-                return(
-                    <Mensage
-                    key={idMsgKey}
-                    smsClass={cclassSms}
-                    smsHour='12:00'
-                    mensage={mensage.mensagem}
-                    />
-                )
+                    return(
+                        <Mensage
+                        key={idMsgKey}
+                        smsClass={cclassSms}
+                        smsHour={mensage.hour}
+                        mensage={mensage.mensagem}
+                        />
+                    )
                 }
             })                    
-               
-
            }
         </div>
     )

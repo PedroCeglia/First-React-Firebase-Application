@@ -137,23 +137,37 @@ export const criandoUsuarioDatabase = (uidUser, emailUser, nameUser) =>{
     )
 }
 export const enviandoMensagemDatabase = (user, uidRemetente , mensagem) =>{
-    console.log("começou")
+    const hoje = new Date()
+    const hora = hoje.getHours().toString()
+    const minutos = hoje.getMinutes().toString()
+    
+    let minutosEdit
+    let horaEdit
+
+    if(hora.length<=1){ horaEdit = `0${hora}` } else{horaEdit = hora}
+    if(minutos.length<=1){ minutosEdit = `0${minutos}` } else{ minutosEdit = minutos}
+    
+    const horaMinuto =  horaEdit + ":" + minutosEdit
+    const time = hoje.getTime()
+
     set(push(ref(database, `mensagens/${user.uid}/${uidRemetente}`)),
         {
             idUsuario:user.uid,
             nome: user.displayName,
-            mensagem: mensagem
+            mensagem: mensagem,
+            hour: horaMinuto,
+            time: time
         }
     )
-    console.log("começou 1")
     set(push(ref(database, `mensagens/${uidRemetente}/${user.uid}`)),
         {
             idUsuario:user.uid,
             nome: user.displayName,
-            mensagem: mensagem
+            mensagem: mensagem,
+            hour: horaMinuto,
+            time: time
         }    
     )      
-    console.log("Fim")
 }
 function setNameDatabase(user, nameUser, dataRef){
     update(ref(dataRef,`usuarios/${user.uid}`),{
