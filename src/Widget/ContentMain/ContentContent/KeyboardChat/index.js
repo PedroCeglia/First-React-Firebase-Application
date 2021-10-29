@@ -1,22 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './style.css'
 
 // Import Firebase
-import { auth, enviandoMensagemDatabase } from "../../../../Server/FirebaseConfig";
+import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem} from "../../../../Server/FirebaseConfig";
+import { get, child, ref } from "@firebase/database"; 
 
 export default function KeyboardChat(props){
     // User Datas
-    let user = auth.currentUser
-    let userIdDestinatario = props.userIdDestinatario
+    //let user = auth.currentUser
+    const [user, setUser] = useState(auth.currentUser)
+    useEffect(()=>{
+        if(auth.currentUser != null){
+            setUser(auth.currentUser)
+        }
+    }, [auth.currentUser])
+
+    // Config Database Ref
+    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState("") 
+    const [userDestinatarioEscolhidos, setUserDestinatarioEscolhidos] = useState("") 
+
+    useEffect(()=>{
+        setIdDestinatarioEscolhidos(props.userIdDestinatario)
+        setUserDestinatarioEscolhidos(props.userDestinatario)
+    },[props.userIdDestinatario, props.userDestinatario])
 
     // Use State
     const [mensageText, setMensageText] = useState("")
+
+    /* Configurando Conversas no DataBase*/
+    function setConversas(){
+        if(auth.currentUser != null){
+            const contatosRef = ref(database, `conversas/${user.uid}/${idDestinatarioEscolhidos}`)
+            get(contatosRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    setUltimaMensagem(user.uid, idDestinatarioEscolhidos, mensageText)
+                } else {
+                    criaConversa(user.uid, userDestinatarioEscolhidos, idDestinatarioEscolhidos, mensageText)
+                }
+                enviandoMensagemDatabase(user, idDestinatarioEscolhidos, mensageText)
+            }).catch((error) => {
+                console.error(error);
+            });        
+            
+        }
+    }
     
     function enviar(){
-        if(mensageText.lenght>1)
-        console.log(mensageText)
-            enviandoMensagemDatabase(user, userIdDestinatario, mensageText )
-            setMensageText("")
+        if(mensageText.length >1){
+           setConversas()
+           setMensageText("")
+        }
     }
     return(
         <div className='keyboard-chat'>

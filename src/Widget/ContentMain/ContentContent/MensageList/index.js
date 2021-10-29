@@ -13,9 +13,15 @@ import Mensage from './Mensage'
 export default function MensageList(props){
     
     // Config Database Ref
-    let userId = auth.currentUser.uid
-    //let userIdDestinatario = props.userIdDestinatario
-    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
+    //let user = auth.currentUser
+    const [user, setUser] = useState(auth.currentUser)
+    useEffect(()=>{
+        if(auth.currentUser != null){
+            setUser(auth.currentUser)
+        }
+    }, [auth.currentUser])
+    
+    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState(props.userIdDestinatario) 
 
     
     
@@ -23,7 +29,7 @@ export default function MensageList(props){
     let newMensageList = []
     const [changeTest, setChangeTest] = useState(0)
     
-    const dataRef = ref(database,`mensagens/${userId}/${idDestinatarioEscolhidos}`)
+    let dataRef = ref(database,`mensagens/${user.uid}/${idDestinatarioEscolhidos}`)
     
     // MensageList
     const [msgList, setMsgList] = useState([])
@@ -37,15 +43,16 @@ export default function MensageList(props){
             setTeste(changeTest+1)
         }
     },[props.userIdDestinatario])
-
+ 
     // Recuperando Lista de Mensagens
-    useEffect(()=>{
-        if(idDestinatarioEscolhidos != undefined){
+    useEffect(()=>{ 
+        if(idDestinatarioEscolhidos != null && idDestinatarioEscolhidos.length != 0){ 
             onValue(dataRef, snapshot =>{
                 if(snapshot.exists()){
                     newMensageList = []
                     snapshot.forEach(childSnapshot =>{
                         newMensageList.push(childSnapshot.val())
+                        //console.log(childSnapshot.val())
                     })  
                     setMsgList(newMensageList)
                 } else{
@@ -57,7 +64,7 @@ export default function MensageList(props){
     // Listener Add Mensage
     useEffect(()=>{
         if(idDestinatarioEscolhidos != undefined){
-            onChildAdded(dataRef, data => {
+            onChildAdded(dataRef, () => {
                 setChangeTest(0)
                 setTeste(0)
             })
@@ -70,7 +77,7 @@ export default function MensageList(props){
                     let cclassSms
                     idMsgKey++ 
                     if(msgList.length>0){
-                    if(mensage.idUsuario === userId){
+                    if(mensage.idUsuario === user.uid){
                         cclassSms = 'sms-you'
                     } else{
                         cclassSms ='sms-friend'

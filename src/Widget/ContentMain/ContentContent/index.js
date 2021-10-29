@@ -13,10 +13,12 @@ export default function ContentContent(props){
 
     // Config Database Ref
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
+    const [userDestinatarioEscolhidos, setUserDestinatarioEscolhidos] = useState() 
 
     useEffect(()=>{
         setIdDestinatarioEscolhidos(props.userIdDestinatario)
-    },[props.userIdDestinatario])
+        setUserDestinatarioEscolhidos(props.userDestinatario)
+    },[props.userIdDestinatario, props.userDestinatario])
     
 
     return(
@@ -25,7 +27,9 @@ export default function ContentContent(props){
             <MensageList
                 userIdDestinatario={idDestinatarioEscolhidos}/>
             <KeyboardChat
-                userIdDestinatario={idDestinatarioEscolhidos}/>
+                userIdDestinatario={idDestinatarioEscolhidos}
+                userDestinatario={userDestinatarioEscolhidos}
+            />
         </div>
     )
 }

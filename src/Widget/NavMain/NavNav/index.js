@@ -35,7 +35,7 @@ export default function NavNav(props){
             setIdDestinatarioEscolhidos(props.contatoUserId)
         }
     },[props.contatoUserId])
-
+   
     // Recuperando Lista de Usuarios
     useEffect(()=>{
         if(auth.currentUser != null){
