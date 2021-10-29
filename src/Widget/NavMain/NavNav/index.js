@@ -62,14 +62,7 @@ export default function NavNav(props){
             })        
         }
     },[])
-    // Listener Add Mensage
-    useEffect(()=>{
-        if(idDestinatarioEscolhidos != undefined){
-            onChildAdded(usuariosRef, () => {
-                //setChangeTest(1)
-            })
-        }
-    },[idDestinatarioEscolhidos]) 
+
 
     // OnClick Chat Icon
     function handleChatIcon(idDestinatario){

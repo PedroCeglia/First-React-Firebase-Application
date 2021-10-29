@@ -12,8 +12,7 @@ import Mensage from './Mensage'
 
 export default function MensageList(props){
     
-    // Config Database Ref
-    //let user = auth.currentUser
+    // Usuario Atual
     const [user, setUser] = useState(auth.currentUser)
     useEffect(()=>{
         if(auth.currentUser != null){
@@ -25,7 +24,6 @@ export default function MensageList(props){
 
     // Scroll Config
     const messageEl = useRef(null);
-   
     useEffect(() => {
       if (messageEl) {
         messageEl.current.addEventListener('DOMNodeInserted', event => {
@@ -46,6 +44,7 @@ export default function MensageList(props){
     const [teste, setTeste] = useState(0) 
     let idMsgKey = 0
 
+    // Recuperando IdDestinatario
     useEffect(()=>{
         if(props.userIdDestinatario != idDestinatarioEscolhidos){
             setIdDestinatarioEscolhidos(props.userIdDestinatario)
@@ -78,7 +77,9 @@ export default function MensageList(props){
                 setTeste(0)
             })
         }
-    },[changeTest]) 
+    },[changeTest])
+    
+    
     return(
         <div className='mensage-list' ref={messageEl}>
            { 
