@@ -8,7 +8,7 @@ import ContentMain from "../../ContentMain";
 
 // Import Firebase
 import { auth, database } from "../../../Server/FirebaseConfig";
-import {ref, onValue, onChildAdded} from "firebase/database";
+import {ref, onValue} from "firebase/database";
 
 
 
@@ -27,11 +27,16 @@ export default function NavNav(props){
     const [listaUsuario, setListaUsuario] = useState([])
     // lista de id dos usuarios
     const [listaIdUsuario, setListaIdUsuario] = useState([])
-    // idDestinatario Escolhido
-    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState() 
 
-    const [changeTest, setChangeTest] = useState(0)
-    const [test, setTest] = useState(0)
+    // lista de usuarios Filter 
+    const [listaUsuarioFilter, setListaUsuarioFilter] = useState([])
+    // lista de id dos usuarios Filter
+    const [listaIdUsuarioFilter, setListaIdUsuarioFilter] = useState([])
+
+    // idDestinatario Escolhido
+    const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState()
+    
+
 
     // Sera chamado se Um suario for escolhido pelos contatos
     useEffect(()=>{
@@ -63,6 +68,34 @@ export default function NavNav(props){
         }
     },[])
 
+    // Input Text SearchView
+    const [inputText, setInputText] = useState("")
+
+    // Muda a lista de Usuarios
+    useEffect(()=>{
+        if(inputText.length>=1){
+            let listaNovaFilter = []
+            let listaNovaIdFilter = []
+            listaUsuario.filter((usuario, x) => {
+                if(usuario.usuarioExibicao.nome.indexOf(inputText)>=0){
+                    listaNovaFilter.push(usuario)
+                    listaNovaIdFilter.push(listaIdUsuario[x])
+                    console.log(x)
+                }
+ 
+            })
+            if(listaNovaFilter.length==0){
+                setListaUsuarioFilter([])
+                setListaIdUsuarioFilter([]) 
+            } else{
+                setListaUsuarioFilter(listaNovaFilter)
+                setListaIdUsuarioFilter(listaNovaIdFilter) 
+            }
+        } else{
+            setListaUsuarioFilter(listaUsuario)
+            setListaIdUsuarioFilter(listaIdUsuario)
+        }
+    },[inputText, listaIdUsuario, listaUsuario])
 
     // OnClick Chat Icon
     function handleChatIcon(idDestinatario){
@@ -74,12 +107,13 @@ export default function NavNav(props){
             <div className='nav-nav'>
                 <div className='search-chat'>
                     <img src='assets/search.png' alt='Search Icon' title='Search Chat'/>
-                    <input type='text' placeholder='Search a Chat'/>
+                    <input type='text' placeholder='Search a Chat'
+                        value={inputText} onChange={text => {setInputText(text.target.value)}} />
                 </div>
                 <div className='chat-list'>
                     {
-                        listaUsuario.map((user)=>{
-                            let idUsuarioChatIcon = listaIdUsuario[idUserKey]
+                        listaUsuarioFilter.map((user)=>{
+                            let idUsuarioChatIcon = listaIdUsuarioFilter[idUserKey]
                             idUserKey++
                             let srcImg
                             if(user.usuarioExibicao.foto!=null){
@@ -93,11 +127,13 @@ export default function NavNav(props){
                                     name = {user.usuarioExibicao.nome}
                                     imgSrc = {srcImg}
                                     idDestinatario={idUsuarioChatIcon}
-                                    handleClick={handleChatIcon}  
+                                    handleClick={handleChatIcon}
+                                    ultimaMensagem={user.ultimaMensagem}
+                                    description={null}  
                                 />                            
                             )
                         })
-                    }   
+                    }    
                     
                 </div>
             </div>

@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './style.css'
 //'assets/perfil.png' 
 export default function ChatIcon(props){
     function handleClick2(){
         props.handleClick(props.idDestinatario)
     }
+
     let listType =`other-data-chat ${props.type}`
+
+    const [abaixoNome, setAbaixoNome] = useState("")
+    useEffect(()=>{
+        if(props.ultimaMensagem != null){
+            setAbaixoNome(props.ultimaMensagem)
+        }else if(props.description != null){
+            setAbaixoNome(props.description)
+        } else{
+            setAbaixoNome('Algo de errado Não Esta certo')
+        }        
+    })
+
     return(
         <div className='chat-item' onClick={handleClick2}>
             <div className='perfil-data'>
@@ -15,7 +28,7 @@ export default function ChatIcon(props){
                 />
                 <div className='user-data-chat'>
                     <h4>{props.name}</h4>
-                    <span>last mensage</span>
+                    <span>{abaixoNome}</span>
                 </div>                
             </div>
             <div className={listType}>
