@@ -137,6 +137,7 @@ export const criandoUsuarioDatabase = (uidUser, emailUser, nameUser) =>{
     )
 }
 export const enviandoMensagemDatabase = (user, uidRemetente , mensagem) =>{
+    console.log("começou")
     set(push(ref(database, `mensagens/${user.uid}/${uidRemetente}`)),
         {
             idUsuario:user.uid,
@@ -144,14 +145,15 @@ export const enviandoMensagemDatabase = (user, uidRemetente , mensagem) =>{
             mensagem: mensagem
         }
     )
+    console.log("começou 1")
     set(push(ref(database, `mensagens/${uidRemetente}/${user.uid}`)),
-    {
-        idUsuario:user.uid,
-        nome: user.displayName,
-        mensagem: mensagem
-    }
-)
-    
+        {
+            idUsuario:user.uid,
+            nome: user.displayName,
+            mensagem: mensagem
+        }    
+    )      
+    console.log("Fim")
 }
 function setNameDatabase(user, nameUser, dataRef){
     update(ref(dataRef,`usuarios/${user.uid}`),{
@@ -168,7 +170,7 @@ function setImagePerfilDatabase(user, url){
         foto:url
     })
 }
-function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensagem){
+export function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensagem){
     set(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
         idDestinatario:idUserAmigo,
         idRemetente:idUserLogado,
@@ -184,7 +186,7 @@ function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensagem){
         usuarioExibicao:userAmigo
     })
 }
-function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
+export function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
     update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
         ultimaMensagem:ultimaMensagem
     })
