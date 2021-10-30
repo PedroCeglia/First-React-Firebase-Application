@@ -1,7 +1,7 @@
 .content-content .keyboard-chat{
     position: absolute;
     bottom: 0;
-    z-index: 2;
+    z-index: 1;
 
     display: flex;
     justify-content: space-around;
