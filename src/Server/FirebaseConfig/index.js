@@ -8,6 +8,9 @@ import {getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, si
 import {getDatabase, set, ref, update, push} from 'firebase/database'
 // Compat Version
 import 'firebase/compat/storage'
+
+//UUID
+import { v4 as uuidv4 } from 'uuid';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB_k45UQA_2SxL9vso1dYahzxHBfdGHQRI",
@@ -169,6 +172,41 @@ export const enviandoMensagemDatabase = (user, uidRemetente , mensagem) =>{
         }    
     )      
 }
+const enviandoMensagemFotoDatabase = (user, uidRemetente , url, mensagem) =>{
+    const hoje = new Date()
+    const hora = hoje.getHours().toString()
+    const minutos = hoje.getMinutes().toString()
+    
+    let minutosEdit
+    let horaEdit
+
+    if(hora.length<=1){ horaEdit = `0${hora}` } else{horaEdit = hora}
+    if(minutos.length<=1){ minutosEdit = `0${minutos}` } else{ minutosEdit = minutos}
+    
+    const horaMinuto =  horaEdit + ":" + minutosEdit
+    const time = hoje.getTime()
+
+    set(push(ref(database, `mensagens/${user.uid}/${uidRemetente}`)),
+        {
+            idUsuario:user.uid,
+            nome: user.displayName,
+            mensagem: mensagem,
+            foto: url,
+            hour: horaMinuto,
+            time: time
+        }
+    )
+    set(push(ref(database, `mensagens/${uidRemetente}/${user.uid}`)),
+        {
+            idUsuario:user.uid,
+            nome: user.displayName,
+            mensagem: mensagem,
+            foto: url,
+            hour: horaMinuto,
+            time: time
+        }    
+    )      
+}
 function setNameDatabase(user, nameUser, dataRef){
     update(ref(dataRef,`usuarios/${user.uid}`),{
         nome:nameUser
@@ -206,6 +244,14 @@ export function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
     })
     update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
         ultimaMensagem:ultimaMensagem
+    })
+}
+export function setUltimaMensagemFoto(idUserLogado, idUserAmigo){
+    update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
+        ultimaMensagem:'image.jpeg'
+    })
+    update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
+        ultimaMensagem:'image.jpeg'
     })
 }
 
@@ -251,4 +297,46 @@ export function setPerfilFoto(user, image){
             })
         })
 }
+export function addMensageFoto(user, uidRemetente, image){
+    var uploadTask = storage.ref().child(`imagens/fotos/${user.uid}/${uuidv4()}`).put(image)
+    
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_change'
+        snapshot =>{ // Funções de Ciclo de Vida
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            } 
+        }, 
+        error => { // Erro Function
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+          
+              case 'storage/canceled':
+                // User canceled the upload
+                break;
+          
+              case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+        },
+        ()=>{ // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                console.log('File available at', downloadURL);
+                enviandoMensagemFotoDatabase(user, uidRemetente, downloadURL, 'image.jpeg')
+                setUltimaMensagemFoto(user.uid, uidRemetente)
+            })
+        })
+} 
 export default app

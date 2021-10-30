@@ -14,17 +14,14 @@
     min-height: 60px;
 } 
 .content-content .keyboard-chat img{
-    box-sizing: content-box;
     width: 25px;
     height: 25px;
-    padding: 5px;
-
-    border-radius: 40%;
-
     object-fit: cover;
 }
-.content-content .keyboard-chat img:hover{
+.content-content .keyboard-chat label:hover{
     background-color: rgba(112, 128, 144, 0.418);
+    padding: 5px;
+    border-radius: 40%;
 }
 .content-content .keyboard-chat input{
     width: 60vw;
@@ -37,4 +34,7 @@
 
     border: none;
     border-radius: 20px;
+}
+.content-content .keyboard-chat input.none{
+    display: none;
 }

@@ -92,14 +92,26 @@ export default function MensageList(props){
                     } else{
                         cclassSms ='sms-friend'
                     }
-                    return(
-                        <Mensage
-                        key={idMsgKey}
-                        smsClass={cclassSms}
-                        smsHour={mensage.hour}
-                        mensage={mensage.mensagem}
-                        />
-                    )
+                    if(mensage.foto != null){
+                        return(
+                            <Mensage
+                            key={idMsgKey}
+                            smsClass={cclassSms}
+                            smsHour={mensage.hour}
+                            mensage={mensage.mensagem}
+                            foto={mensage.foto}
+                            />
+                        )
+                    } else{
+                        return(
+                            <Mensage
+                            key={idMsgKey}
+                            smsClass={cclassSms}
+                            smsHour={mensage.hour}
+                            mensage={mensage.mensagem}
+                            />
+                        )                        
+                    }
                 }
             })                    
            }

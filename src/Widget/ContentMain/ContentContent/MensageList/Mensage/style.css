@@ -1,7 +1,5 @@
 
 .sms-you, .sms-friend{
-
-    
     margin: 10px;
     border-radius: 20px;
 
@@ -15,6 +13,15 @@
     max-width: 50vw;
 
     padding: 10px;
+}
+div.sms-you, div.sms-friend{
+    flex-direction: column;
+    align-items: flex-end;
+}
+.sms-you img, .sms-friend img{
+    display: block;
+    max-width: 40vw;
+    max-height: 40vh;
 }
 .sms-you{
     align-self: flex-end;

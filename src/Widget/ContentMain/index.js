@@ -15,14 +15,14 @@ export default function ContentMain(props){
     let [user, setUser] = useState("")
     let [userId, setUserId] = useState("")
     // Import User Destinatario from RealTime Database
-        useEffect(()=>{
-            get(dataRef).then(snapshot =>{ 
-                if(snapshot.exists()){
-                    setUser(snapshot.val())
-                    setUserId(snapshot.key)
-                }
-            })
-        },[props.idDestinatario])
+    useEffect(()=>{
+        get(dataRef).then(snapshot =>{ 
+            if(snapshot.exists()){
+                setUser(snapshot.val())
+                setUserId(snapshot.key)
+            }
+        })
+    },[props.idDestinatario])
 
     if(props.idDestinatario !== null && props.idDestinatario !== undefined){
         return(
@@ -38,7 +38,9 @@ export default function ContentMain(props){
     } else{
         return(
             <div className='notChat'>
-                <h1>Open Any Chat</h1>
+                <img src='assets/whats-logo.svg'/>
+                <h4>WhatsApp</h4>
+                <h2>Open Any Chat</h2>
             </div>
         )
     }

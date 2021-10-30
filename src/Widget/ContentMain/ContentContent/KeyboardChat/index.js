@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+
 import './style.css'
 
 // Import Firebase
-import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem} from "../../../../Server/FirebaseConfig";
-import { get, child, ref } from "@firebase/database"; 
+import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem, addMensageFoto} from "../../../../Server/FirebaseConfig";
+import { get, ref } from "@firebase/database"; 
 
 export default function KeyboardChat(props){
     // User Datas
-    //let user = auth.currentUser
     const [user, setUser] = useState(auth.currentUser)
     useEffect(()=>{
         if(auth.currentUser != null){
@@ -19,6 +19,7 @@ export default function KeyboardChat(props){
     const [idDestinatarioEscolhidos, setIdDestinatarioEscolhidos] = useState("") 
     const [userDestinatarioEscolhidos, setUserDestinatarioEscolhidos] = useState("") 
 
+    // Recuperar IdDestinatario
     useEffect(()=>{
         setIdDestinatarioEscolhidos(props.userIdDestinatario)
         setUserDestinatarioEscolhidos(props.userDestinatario)
@@ -44,6 +45,7 @@ export default function KeyboardChat(props){
             
         }
     }
+    // Enviar Mensagens
     function enviarEnter(e){
         if(e.key == "Enter"){
             enviar()
@@ -57,10 +59,17 @@ export default function KeyboardChat(props){
             alert("Digite Alguma Mensagem")
         }
     }
+    function setFoto(src){
+        console.log('antes')
+        addMensageFoto(user, idDestinatarioEscolhidos, src.target.files[0])
+        console.log('depois')
+    }
     return(
         <div className='keyboard-chat'>
             <img src='assets/emoji.png' alt='Emoji Icon' title='Emoji'/>
-            <img src='assets/clip.png' alt='Attachment Icon' title='Attachment'/>
+            <label htmlFor='imgKeyboard'><img src='assets/clip.png' alt='Attachment Icon' title='Attachment'/></label>
+            <input type='file' id='imgKeyboard' className='none'
+                onChange={setFoto}/>
             <input value={mensageText} onKeyPress={e =>{ enviarEnter(e)}} onChange={text => setMensageText(text.target.value)} type='text'/>
             <img src='assets/send.png' onClick={enviar}/>
         </div>
