@@ -102,6 +102,16 @@ export default function MensageList(props){
                             foto={mensage.foto}
                             />
                         )
+                    } else if(mensage.video != null){
+                        return(
+                            <Mensage
+                            key={idMsgKey}
+                            smsClass={cclassSms}
+                            smsHour={mensage.hour}
+                            mensage={mensage.mensagem}
+                            video={mensage.video}
+                            />
+                        )
                     } else{
                         return(
                             <Mensage

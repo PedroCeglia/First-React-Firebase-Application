@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import './style.css'
 
 // Import Firebase
-import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem, addMensageFoto} from "../../../../Server/FirebaseConfig";
+import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem, addMensageFoto, addMensageVideo} from "../../../../Server/FirebaseConfig";
 import { get, ref } from "@firebase/database"; 
 
 export default function KeyboardChat(props){
@@ -61,7 +61,16 @@ export default function KeyboardChat(props){
     }
     function setFoto(src){
         console.log('antes')
-        addMensageFoto(user, idDestinatarioEscolhidos, src.target.files[0])
+        let tipoFile = src.target.files[0].type.split('/')
+        switch(tipoFile[0]){
+            case 'image':
+                addMensageFoto(user, idDestinatarioEscolhidos, src.target.files[0])
+                break;
+            case 'video':
+                addMensageVideo(user, idDestinatarioEscolhidos, src.target.files[0])
+                break;    
+        }
+        
         console.log('depois')
     }
     return(
