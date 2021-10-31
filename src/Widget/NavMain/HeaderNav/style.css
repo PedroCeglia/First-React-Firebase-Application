@@ -1,6 +1,8 @@
-
+.conteiner-header-nav{
+    background-color: rgba(0, 128, 128, 0.452);
+}
 .main-header-nav{
-    background-color: #dad8d877;
+    background-color: #dad8d8de;
     width: 30vw;
     min-width: 300px;
 
