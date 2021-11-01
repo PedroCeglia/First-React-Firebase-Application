@@ -19,8 +19,6 @@ export default function NavNav(props){
         userId = auth.currentUser.uid
     const usuariosRef = ref(database, `conversas/${userId}`)
 
-    // Key List.map() = listaUsuario    
-    let idUserKey = 0
 
     // UseStates 
     // lista de usuarios
@@ -58,11 +56,15 @@ export default function NavNav(props){
                 snapshot.forEach((childSnapshot) =>{
                     const childKey = childSnapshot.key
                     if(userId !== childKey ){
-                        listaNovaUsuarios.push(childSnapshot.val())
+                       //listaNovaUsuarios.push(childSnapshot.val())
                         listaNovaIdUsuarios.push(childSnapshot.key)
+                        listaNovaUsuarios.push({
+                            key:childSnapshot.key,
+                            value:childSnapshot.val()
+                        })
                     }
                 })
-                setListaUsuario(listaNovaUsuarios)
+                setListaUsuario(listaNovaUsuarios.sort(ordenarTempoMensagem))
                 setListaIdUsuario(listaNovaIdUsuarios)
             })        
         }
@@ -77,10 +79,9 @@ export default function NavNav(props){
             let listaNovaFilter = []
             let listaNovaIdFilter = []
             listaUsuario.filter((usuario, x) => {
-                if(usuario.usuarioExibicao.nome.indexOf(inputText)>=0){
+                if(usuario.value.usuarioExibicao.nome.indexOf(inputText)>=0){
                     listaNovaFilter.push(usuario)
-                    listaNovaIdFilter.push(listaIdUsuario[x])
-                    console.log(x)
+                    listaNovaIdFilter.push(usuario.key)
                 }
  
             })
@@ -102,6 +103,11 @@ export default function NavNav(props){
         setIdDestinatarioEscolhidos(idDestinatario)
     }
 
+    // Ordenando Lista a partir da ultima mensagem
+    function ordenarTempoMensagem(a, b){
+        return parseInt(b.value.time) - parseInt(a.value.time) 
+    }
+
     return (
         <div className='nav-nav-first'>
             <div className='nav-nav'>
@@ -112,23 +118,21 @@ export default function NavNav(props){
                 </div>
                 <div className='chat-list'>
                     {
-                        listaUsuarioFilter.map((user)=>{
-                            let idUsuarioChatIcon = listaIdUsuarioFilter[idUserKey]
-                            idUserKey++
+                        listaUsuarioFilter.map((user, x)=>{
                             let srcImg
-                            if(user.usuarioExibicao.foto!=null){
-                                srcImg = user.usuarioExibicao.foto
+                            if(user.value.usuarioExibicao.foto!=null){
+                                srcImg = user.value.usuarioExibicao.foto
                             } else{
                                 srcImg='assets/perfil.png'
                             }
                             return(
                                 <ChatIcon
-                                    key={idUserKey}
-                                    name = {user.usuarioExibicao.nome}
+                                    key={x}
+                                    name = {user.value.usuarioExibicao.nome}
                                     imgSrc = {srcImg}
-                                    idDestinatario={idUsuarioChatIcon}
+                                    idDestinatario={user.key}
                                     handleClick={handleChatIcon}
-                                    ultimaMensagem={user.ultimaMensagem}
+                                    ultimaMensagem={user.value.ultimaMensagem}
                                     description={null}  
                                 />                            
                             )

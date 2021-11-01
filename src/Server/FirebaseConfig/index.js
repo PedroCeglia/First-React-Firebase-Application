@@ -170,7 +170,8 @@ export const enviandoMensagemDatabase = (user, uidRemetente , mensagem) =>{
             hour: horaMinuto,
             time: time
         }    
-    )      
+    )
+          
 }
 const enviandoMensagemFotoDatabase = (user, uidRemetente , url, mensagem) =>{
     const hoje = new Date()
@@ -274,19 +275,14 @@ export function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensage
     })
 }
 export function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
+    let timeS = new Date().getTime().toString()
     update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
-        ultimaMensagem:ultimaMensagem
+        ultimaMensagem:ultimaMensagem,
+        time:timeS
     })
     update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
-        ultimaMensagem:ultimaMensagem
-    })
-}
-export function setUltimaMensagemStorage(idUserLogado, idUserAmigo, mensage){
-    update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
-        ultimaMensagem:mensage
-    })
-    update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
-        ultimaMensagem:mensage
+        ultimaMensagem:ultimaMensagem,
+        time:timeS
     })
 }
 
@@ -372,7 +368,7 @@ export function addMensageFoto(user, uidRemetente, image){
                     console.log('File available at', downloadURL);
                     let tipoImage = image.type.split('/')
                     enviandoMensagemFotoDatabase(user, uidRemetente, downloadURL, tipoImage[0]) 
-                    setUltimaMensagemStorage(user.uid, uidRemetente, tipoImage[0])
+                    setUltimaMensagem(user.uid, uidRemetente, tipoImage[0])
                 })
             })        
     }
@@ -418,7 +414,7 @@ export function addMensageVideo(user, uidRemetente, video){
                     console.log('File available at', downloadURL);
                     let tipoVideo = video.type.split('/')
                     enviandoMensagemVideoDatabase(user, uidRemetente, downloadURL, tipoVideo[0])
-                    setUltimaMensagemStorage(user.uid, uidRemetente, tipoVideo[0])
+                    setUltimaMensagem(user.uid, uidRemetente, tipoVideo[0])
                 })
             })        
     }
