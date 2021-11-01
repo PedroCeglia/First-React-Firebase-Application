@@ -8,6 +8,7 @@ export default function ChatIcon(props){
 
     let listType =`other-data-chat ${props.type}`
 
+    // Config Descrição ou Ultima Mensagem
     const [abaixoNome, setAbaixoNome] = useState("")
     useEffect(()=>{
         if(props.ultimaMensagem != null){
@@ -18,6 +19,16 @@ export default function ChatIcon(props){
             setAbaixoNome('Algo de errado Não Esta certo')
         }        
     })
+
+    // Config Notificações
+    const [classNotify, setClassNotify] = useState('mensages-number-chat disable')
+    useEffect(()=>{
+            if(props.qnts != 0 && props.qnts != null){
+                setClassNotify('mensages-number-chat')
+            } else {
+                setClassNotify('mensages-number-chat disable')
+            }
+    }, [props.qnts])
 
     return(
         <div className='chat-item' onClick={handleClick2}>
@@ -35,7 +46,7 @@ export default function ChatIcon(props){
                 <span>18:50</span>
                 <div className='notify-chat'>
                     <img src='assets/mute.png' alt='Mute Icon'/>
-                    <div className='mensages-number-chat'><span>0</span></div>
+                    <div className={classNotify}><span>{props.qnts}</span></div>
                     <img src='assets/down-arrow.png' alt='Open Chat Menu Icon'/>
                 </div>
             </div>

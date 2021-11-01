@@ -263,6 +263,7 @@ export function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensage
         idDestinatario:idUserAmigo,
         idRemetente:idUserLogado,
         isGroup:"false",
+        qnts:0,
         ultimaMensagem:ultimaMensagem,
         usuarioExibicao:userAmigo
     })
@@ -270,19 +271,31 @@ export function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensage
         idDestinatario:idUserLogado,
         idRemetente:idUserAmigo,
         isGroup:"false",
+        qnts:0,
         ultimaMensagem:ultimaMensagem,
         usuarioExibicao:userAmigo
     })
 }
 export function setUltimaMensagem(idUserLogado, idUserAmigo, ultimaMensagem){
     let timeS = new Date().getTime().toString()
+    let mensageFilter
+    if(ultimaMensagem.length < 15){
+        mensageFilter=ultimaMensagem
+    }else{
+        mensageFilter = ultimaMensagem.substr(0,15) + "..."
+    }
     update(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
-        ultimaMensagem:ultimaMensagem,
+        ultimaMensagem:mensageFilter,
         time:timeS
     })
     update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
-        ultimaMensagem:ultimaMensagem,
+        ultimaMensagem:mensageFilter,
         time:timeS
+    })
+}
+export function setQuantasNotify(idUserLogado, idUserAmigo, notifys){
+    update(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
+        qnts:notifys
     })
 }
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import './style.css'
 
 // Import Firebase
-import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem, addMensageFoto, addMensageVideo} from "../../../../Server/FirebaseConfig";
+import { auth, database, enviandoMensagemDatabase, criaConversa, setUltimaMensagem, addMensageFoto, addMensageVideo, setQuantasNotify} from "../../../../Server/FirebaseConfig";
 import { get, ref } from "@firebase/database"; 
 
 export default function KeyboardChat(props){
@@ -25,6 +25,13 @@ export default function KeyboardChat(props){
         setUserDestinatarioEscolhidos(props.userDestinatario)
     },[props.userIdDestinatario, props.userDestinatario])
 
+    // Recuperando Qnts
+    const [qnts, setQnts] = useState(0)
+    useEffect(()=>{
+        if(props.qnts != null){
+            setQnts(props.qnts)
+        }
+    },[props.qnts])
     // Use State
     const [mensageText, setMensageText] = useState("")
 
@@ -54,6 +61,11 @@ export default function KeyboardChat(props){
     function enviar(){
         if(mensageText.length>=1){
            setConversas()
+           let qnt = qnts + 1
+           console.log(idDestinatarioEscolhidos)
+           console.log(user.uid);
+           console.log(qnt);
+           setQuantasNotify(user.uid, idDestinatarioEscolhidos,  qnt)
            setMensageText("")
         } else{ 
             alert("Digite Alguma Mensagem")

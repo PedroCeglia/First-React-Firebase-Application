@@ -96,6 +96,10 @@
     font-weight: bold;
     margin: 0 auto;
     
-} 
+}
+.notify-chat .mensages-number-chat.disable,
+.notify-chat .mensages-number-chat.disable span{
+    display: none;
+}  
 
 

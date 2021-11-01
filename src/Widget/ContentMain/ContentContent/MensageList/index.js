@@ -63,6 +63,7 @@ export default function MensageList(props){
                         newMensageList.push(childSnapshot.val())
                     })  
                     setMsgList(newMensageList)
+                    props.changeNotify(idDestinatarioEscolhidos)
                 } else{
                     setMsgList([])
                 }

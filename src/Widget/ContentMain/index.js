@@ -32,6 +32,7 @@ export default function ContentMain(props){
                 <ContentContent
                     userDestinatario={user}
                     userIdDestinatario={userId}
+                    changeNotify={props.changeNotify} 
                 />
             </div>
         )

@@ -7,7 +7,7 @@ import ContentMain from "../../ContentMain";
 
 
 // Import Firebase
-import { auth, database } from "../../../Server/FirebaseConfig";
+import { auth, database, setQuantasNotify } from "../../../Server/FirebaseConfig";
 import {ref, onValue} from "firebase/database";
 
 
@@ -102,6 +102,9 @@ export default function NavNav(props){
     function handleChatIcon(idDestinatario){
         setIdDestinatarioEscolhidos(idDestinatario)
     }
+    function changeNotify(idDestinatario){
+        setQuantasNotify(idDestinatario, userId, 0)
+    }
 
     // Ordenando Lista a partir da ultima mensagem
     function ordenarTempoMensagem(a, b){
@@ -131,6 +134,7 @@ export default function NavNav(props){
                                     name = {user.value.usuarioExibicao.nome}
                                     imgSrc = {srcImg}
                                     idDestinatario={user.key}
+                                    qnts={user.value.qnts}
                                     handleClick={handleChatIcon}
                                     ultimaMensagem={user.value.ultimaMensagem}
                                     description={null}  
@@ -142,7 +146,8 @@ export default function NavNav(props){
                 </div>
             </div>
             <ContentMain
-                idDestinatario={idDestinatarioEscolhidos} 
+                idDestinatario={idDestinatarioEscolhidos}
+                changeNotify={changeNotify} 
             />            
         </div>
 
