@@ -59,17 +59,21 @@ export default function KeyboardChat(props){
             alert("Digite Alguma Mensagem")
         }
     }
+    const [srcInputFile, setSrcInputFile] = useState("")
     function setFoto(src){
         console.log('antes')
-        let tipoFile = src.target.files[0].type.split('/')
-        switch(tipoFile[0]){
-            case 'image':
-                addMensageFoto(user, idDestinatarioEscolhidos, src.target.files[0])
-                break;
-            case 'video':
-                addMensageVideo(user, idDestinatarioEscolhidos, src.target.files[0])
-                break;    
+        if(src.target.files[0] != null ){
+            let tipoFile = src.target.files[0].type.split('/')
+            switch(tipoFile[0]){
+                case 'image':
+                    addMensageFoto(user, idDestinatarioEscolhidos, src.target.files[0])
+                    break;
+                case 'video':
+                    addMensageVideo(user, idDestinatarioEscolhidos, src.target.files[0])
+                    break;    
+            }            
         }
+
         
         console.log('depois')
     }
@@ -78,7 +82,7 @@ export default function KeyboardChat(props){
             <img src='assets/emoji.png' alt='Emoji Icon' title='Emoji'/>
             <label htmlFor='imgKeyboard'><img src='assets/clip.png' alt='Attachment Icon' title='Attachment'/></label>
             <input type='file' id='imgKeyboard' className='none'
-                onChange={setFoto}/>
+               value={srcInputFile} onChange={setFoto}/>
             <input value={mensageText} onKeyPress={e =>{ enviarEnter(e)}} onChange={text => setMensageText(text.target.value)} type='text'/>
             <img src='assets/send.png' onClick={enviar}/>
         </div>
