@@ -37,7 +37,7 @@ export default function KeyboardChat(props){
 
     /* Configurando Conversas no DataBase*/
     function setConversas(){
-        if(auth.currentUser != null){
+        if(user != null){
             const contatosRef = ref(database, `conversas/${user.uid}/${idDestinatarioEscolhidos}`)
             get(contatosRef).then((snapshot) => {
                 if (snapshot.exists()) {

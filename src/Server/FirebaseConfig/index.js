@@ -259,20 +259,30 @@ function setImagePerfilDatabase(user, url){
     })
 }
 export function criaConversa(idUserLogado, userAmigo, idUserAmigo, ultimaMensagem){
+    let timeS = new Date().getTime().toString()
+    let mensageFilter
+
+    if(ultimaMensagem.length < 15){
+        mensageFilter=ultimaMensagem
+    }else{
+        mensageFilter = ultimaMensagem.substr(0,15) + "..."
+    }
     set(ref(database, `conversas/${idUserLogado}/${idUserAmigo}`),{
         idDestinatario:idUserAmigo,
         idRemetente:idUserLogado,
         isGroup:"false",
+        time:timeS,
         qnts:0,
-        ultimaMensagem:ultimaMensagem,
+        ultimaMensagem:mensageFilter,
         usuarioExibicao:userAmigo
     })
     set(ref(database, `conversas/${idUserAmigo}/${idUserLogado}`),{
         idDestinatario:idUserLogado,
         idRemetente:idUserAmigo,
         isGroup:"false",
-        qnts:0,
-        ultimaMensagem:ultimaMensagem,
+        time:timeS,
+        qnts:1,
+        ultimaMensagem:mensageFilter,
         usuarioExibicao:userAmigo
     })
 }
